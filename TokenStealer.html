@@ -116,8 +116,7 @@
     </ul>
     
     <h3>B. VirusTotal Scan</h3>
-    <p>The malware was scanned on <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, which flagged it as a token stealer. The file had multiple detections for keylogger activity and information theft.</p>
-    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="VirusTotal Scan Result" />
+    <p>The malware was scanned on <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, which flagged it as a token stealer.</p>
   </section>
 
   <!-- Post Analysis Section -->
@@ -129,7 +128,10 @@
     <p>Upon execution, the malware attempts to:</p>
     <ul>
       <li>Create the file <strong>C:\temp\[USER]_Passwords.txt</strong> to store any stolen passwords.</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
       <li>Scan the system for stored Discord tokens in browser data files (e.g., Chrome's LocalStorage).</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Save" />
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" />
       <li>Exfiltrate the stolen data using a Discord webhook.</li>
     </ul>
     
@@ -137,6 +139,7 @@
     <p>During post analysis, we used a network monitoring tool like <strong>Wireshark</strong> to capture outgoing traffic. We observed:</p>
     <ul>
       <li>Malware establishing an HTTP connection to a Discord webhook URL.</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" />
       <li>Data being sent in plain text, which included Discord tokens and passwords.</li>
     </ul>
     
@@ -150,9 +153,9 @@
     <h3>D. Analysis Tools Used</h3>
     <p>The following tools were used to aid in post-analysis:</p>
     <ul>
-      <li><strong>Wireshark</strong> - for monitoring network traffic.</li>
-      <li><strong>x64dbg</strong> - for debugging the execution process.</li>
-      <li><strong>Fiddler</strong> - for intercepting and analyzing HTTP requests.</li>
+      <li><strong>App.Any.Run</strong> - for dynamic malware analysis in a sandboxed environment, including real-time monitoring of process behavior and network activity.</li>
+      <li><strong>VirusTotal/Hybrid Analysis</strong> - for scanning files with multiple antivirus engines and gaining insights into behavioral analysis reports.</li>
+      <li><strong>DnSpy</strong> - for decompiling and analyzing .NET executables, allowing inspection and debugging of C# code used in malware.</li>
     </ul>
   </section>
 
@@ -165,7 +168,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 MoriDesuu. All Rights Reserved.</p>
+    <p>&copy; 2025 Aqil Najmi. All Rights Reserved.</p>
   </footer>
 
 </body>
