@@ -76,6 +76,27 @@
       text-decoration: underline;
     }
 
+    .back-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .back-button a {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background-color: #45a049;
+    }
+
     footer {
       text-align: center;
       margin-top: 50px;
@@ -153,6 +174,10 @@
     <h2>3. Conclusion</h2>
     <p>Based on both static and dynamic analysis, the file is a basic but effective password and token stealer.</p>
     <p>The code clearly shows stealing logic using Discord webhooks, and the sandbox confirmed it behaves the same. It saves stolen data locally, exfiltrates it, then deletes itself. Simple, but dangerous if someone executes it unknowingly.</p>
+  </section>
+
+  <section class="back-button">
+    <a href="index.html">⬅ Back to Home</a>
   </section>
 
   <footer>
