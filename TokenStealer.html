@@ -5,18 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Analysis of Malware Code (Password & Token Stealer)</title>
 
-  <!-- Google Fonts for typography -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   
   <style>
-    /* General styling */
     body, h1, h2, p, ul, li, a {
       margin: 0;
       padding: 0;
       font-family: 'Roboto', sans-serif;
     }
 
-    /* Body and background styling */
     body {
       background-color: #f4f7fc;
       color: #333;
@@ -24,7 +21,6 @@
       padding: 20px;
     }
 
-    /* Header Styling */
     header {
       background-color: #4CAF50;
       color: white;
@@ -37,7 +33,6 @@
       font-size: 2.5rem;
     }
 
-    /* Section Styling */
     section {
       margin: 40px 0;
       padding: 20px;
@@ -70,7 +65,6 @@
       border-radius: 8px;
     }
 
-    /* Links and Buttons */
     a {
       color: #4CAF50;
       text-decoration: none;
@@ -82,7 +76,6 @@
       text-decoration: underline;
     }
 
-    /* Footer Styling */
     footer {
       text-align: center;
       margin-top: 50px;
@@ -97,76 +90,71 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <h1>Analysis of the Malware Code (Password & Token Stealer)</h1>
   </header>
 
-  <!-- Static Analysis Section -->
   <section>
     <h2>1. Static Analysis</h2>
-    <p>Static analysis is the first phase of malware analysis, where the file is analyzed without being executed. This helps us understand the structure and functionality of the code. In this case, we used tools like <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, hex editors, and disassemblers to identify suspicious functions and behavior.</p>
-    
-    <h3>A. Hex Editor Analysis</h3>
-    <p>Using a hex editor like <strong>HxD</strong>, we can examine the file's raw data. Key findings include:</p>
+    <p>For static analysis, I didn’t run the file yet. I used <strong>DnSpy</strong> to inspect the malware's code since it was a .NET executable.</p>
+
+    <h3>Reviewing Code with DnSpy</h3>
+    <p>By opening the file in <strong>DnSpy</strong>, I could read and understand what the malware was coded to do. Some findings:</p>
     <ul>
-      <li>Presence of embedded URLs, including Discord webhooks used for exfiltration.</li>
-      <li>Hardcoded paths for local files like C:\temp\[USERNAME]_Passwords.txt.</li>
-      <li>Suspicious strings related to Discord tokens, suggesting the presence of token-stealing functionality.</li>
+      <li>There were Discord webhook URLs hardcoded inside.</li>
+      <li>Functions that grabbed browser data (like Chrome and Firefox tokens).</li>
+      <li>Code that saved stolen data to a local file path like <code>C:\temp\[USER]_Passwords.txt</code>.</li>
+      <li>Used <code>HttpClient</code> or similar to send stolen info to the webhook.</li>
     </ul>
-    
-    <h3>B. VirusTotal Scan</h3>
-    <p>The malware was scanned on <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, which flagged it as a token stealer.</p>
+
+    <h3>VirusTotal Scan</h3>
+    <p>I also uploaded the file to <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, and it was flagged by many AVs. Most said it was a stealer or a trojan.</p>
   </section>
 
-  <!-- Post Analysis Section -->
   <section>
     <h2>2. Post Analysis</h2>
-    <p>After static analysis, we move on to dynamic (post) analysis to observe the behavior of the malware in real-time. This phase involves running the malware in a controlled environment (sandbox) to monitor its actions.</p>
+    <p>After seeing the code statically, I used a sandbox to see how it behaves when executed.</p>
 
-    <h3>A. Execution Behavior</h3>
-    <p>Upon execution, the malware attempts to:</p>
+    <h3>A. Runtime Behavior</h3>
+    <p>After running it in a sandbox, it did the following:</p>
     <ul>
-      <li>Create the file <strong>C:\temp\[USER]_Passwords.txt</strong> to store any stolen passwords.</li>
+      <li>Created a file like <strong>C:\temp\[USER]_Passwords.txt</strong> to store creds.</li>
       <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
-      <li>Scan the system for stored Discord tokens in browser data files (e.g., Chrome's LocalStorage).</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Save" />
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" />
-      <li>Exfiltrate the stolen data using a Discord webhook.</li>
+      <li>Searched local storage files for Discord tokens.</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Token Grab" />
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Discord Storage" />
+      <li>Sent the data to the webhook.</li>
     </ul>
-    
-    <h3>B. Network Activity</h3>
-    <p>During post analysis, we used a network monitoring tool like <strong>Wireshark</strong> to capture outgoing traffic. We observed:</p>
+
+    <h3>B. Network Behavior</h3>
+    <p>I used <strong>App.Any.Run</strong> to monitor network activity. It clearly showed:</p>
     <ul>
-      <li>Malware establishing an HTTP connection to a Discord webhook URL.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" />
-      <li>Data being sent in plain text, which included Discord tokens and passwords.</li>
+      <li>The malware established HTTP connection to a Discord webhook.</li>
+      <li>Sent token and password data in plain text.</li>
     </ul>
-    
-    <h3>C. Cleanup Mechanisms</h3>
-    <p>The malware attempts to cover its tracks by:</p>
+    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Webhook Exfiltration" />
+
+    <h3>C. Cleanup Behavior</h3>
+    <p>It also had some kind of cleanup process:</p>
     <ul>
-      <li>Deleting the local files containing stolen data after exfiltration.</li>
-      <li>Attempting to delete the malware executable itself to avoid detection.</li>
+      <li>Deleted the text file with the stolen data after uploading it.</li>
+      <li>Attempted to remove itself from the system afterward.</li>
     </ul>
-    
-    <h3>D. Analysis Tools Used</h3>
-    <p>The following tools were used to aid in post-analysis:</p>
+
+    <h3>D. Tools Used</h3>
     <ul>
-      <li><strong>App.Any.Run</strong> - for dynamic malware analysis in a sandboxed environment, including real-time monitoring of process behavior and network activity.</li>
-      <li><strong>VirusTotal/Hybrid Analysis</strong> - for scanning files with multiple antivirus engines and gaining insights into behavioral analysis reports.</li>
-      <li><strong>DnSpy</strong> - for decompiling and analyzing .NET executables, allowing inspection and debugging of C# code used in malware.</li>
+      <li><strong>DnSpy</strong> – for viewing and analyzing the C# code inside the .NET file.</li>
+      <li><strong>VirusTotal / Hybrid Analysis</strong> – for scanning and checking known detections.</li>
+      <li><strong>App.Any.Run</strong> – to run the malware safely and observe network behavior.</li>
     </ul>
   </section>
 
-  <!-- Conclusion Section -->
   <section>
     <h2>3. Conclusion</h2>
-    <p>The static and post-analysis confirmed that the malware was a sophisticated password and token stealer. It uses both local and network-based techniques to exfiltrate data to an attacker-controlled Discord webhook. In addition, it has self-cleaning mechanisms to avoid detection and analysis.</p>
-    <p>Static analysis helped identify key functionality, while post-analysis provided insights into its dynamic behavior. Together, these techniques allowed us to fully understand the malware's capabilities and how to mitigate its effects.</p>
+    <p>Based on both static and dynamic analysis, the file is a basic but effective password and token stealer.</p>
+    <p>The code clearly shows stealing logic using Discord webhooks, and the sandbox confirmed it behaves the same. It saves stolen data locally, exfiltrates it, then deletes itself. Simple, but dangerous if someone executes it unknowingly.</p>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Aqil Najmi. All Rights Reserved.</p>
   </footer>
