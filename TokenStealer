@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How I Identified a Malware Discord Token Stealer</title>
+
+  <!-- Google Fonts for typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* General styling */
+    body, h1, h2, p, ul, li, a {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* Body and background styling */
+    body {
+      background-color: #f4f7fc;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    /* Header Styling */
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+    }
+
+    /* Section Styling */
+    section {
+      margin: 40px 0;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* Links and Buttons */
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer Styling */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1rem;
+      color: #888;
+    }
+
+    footer p {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>How I Identified a Malware Discord Token Stealer</h1>
+  </header>
+
+  <!-- Introduction Section -->
+  <section>
+    <h2>Introduction</h2>
+    <p>In this guide, I'll walk you through how I identified a Discord token stealer malware. This type of malware attempts to steal your Discord tokens and can lead to unauthorized access to your account. Below are the essential steps and tools used in the process of malware analysis.</p>
+  </section>
+
+  <!-- Essential Tools Section -->
+  <section>
+    <h2>Essential Tools Used</h2>
+    <p>Here are the essential tools that helped in identifying the malware's behavior:</p>
+    <ul>
+      <li><strong>Hex Editors</strong> - (HxD) for inspecting file contents.</li>
+      <li><strong>Disassemblers/Decompilers</strong> - (IDA Free, Ghidra) to reverse engineer the code.</li>
+      <li><strong>Debuggers</strong> - (x64dbg, OllyDbg) for debugging the execution process.</li>
+      <li><strong>Network Monitors</strong> - (Wireshark, Fiddler) for capturing and analyzing network traffic.</li>
+      <li><strong>Antivirus Scanners</strong> - (VirusTotal) for checking the file against known malware signatures.</li>
+      <li><strong>File Analysis Tools</strong> - (PE-bear, ExifTool) for detailed analysis of file properties and metadata.</li>
+    </ul>
+  </section>
+
+  <!-- Static Analysis Section -->
+  <section>
+    <h2>Static Analysis</h2>
+    <p>Static analysis involves examining the malware without executing it. Using tools like VirusTotal and a debugger, we can gain insights into the file's behavior without running the code.</p>
+    <p>For this particular case, I used <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a> to check the file hash and confirm the file was flagged as a keylogger/stealer.</p>
+  </section>
+
+  <!-- Post-Analysis Section -->
+  <section>
+    <h2>Post-Analysis Findings</h2>
+    <p>After the static analysis, the next step was to conduct dynamic analysis. During this phase, the malware executed the following behaviors:</p>
+    <ul>
+      <li>The malware created a temporary text file to store all the stolen Discord tokens.</li>
+      <li>It sent the stolen tokens to a remote server using a webhook for exfiltration.</li>
+      <li>The file was then deleted to cover its tracks.</li>
+    </ul>
+    <p>These behaviors were observed using debugging tools like x64dbg and monitored network traffic through Fiddler and Wireshark.</p>
+  </section>
+
+  <!-- Common Malware Behaviors Section -->
+  <section>
+    <h2>Common Malware Behaviors to Look For</h2>
+    <p>When analyzing malware, especially a token stealer, here are some common behaviors to watch for:</p>
+    <ul>
+      <li>Modifying system files or registry entries</li>
+      <li>Creating persistence mechanisms (e.g., startup entries, scheduled tasks)</li>
+      <li>Establishing network connections to external IPs or domains</li>
+      <li>Injecting code into other processes</li>
+      <li>Disabling security tools or defenses</li>
+    </ul>
+  </section>
+
+  <!-- Conclusion Section -->
+  <section>
+    <h2>Conclusion</h2>
+    <p>Through the use of various malware analysis tools, we were able to identify the malicious behavior of the Discord token stealer. The analysis process involved both static and dynamic techniques, ensuring that we could gather as much information as possible while keeping the environment safe.</p>
+    <p>It's essential to have the right set of tools and knowledge when analyzing malware. By staying up-to-date with the latest threats and analysis techniques, we can protect our systems from cyberattacks.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 MoriDesuu. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
