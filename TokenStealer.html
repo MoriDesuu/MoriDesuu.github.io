@@ -102,8 +102,12 @@
     <p>By opening the file in <strong>DnSpy</strong>, I could read and understand what the malware was coded to do. Some findings:</p>
     <ul>
       <li>There were Discord webhook URLs hardcoded inside.</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Token Grab" />
       <li>Functions that grabbed browser data (like Chrome and Firefox tokens).</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Token Grab" />
       <li>Code that saved stolen data to a local file path like <code>C:\temp\[USER]_Passwords.txt</code>.</li>
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Save" />
       <li>Used <code>HttpClient</code> or similar to send stolen info to the webhook.</li>
     </ul>
 
@@ -113,16 +117,13 @@
 
   <section>
     <h2>2. Post Analysis</h2>
-    <p>After seeing the code statically, I used a sandbox to see how it behaves when executed.</p>
+    <p>After reviewing the code statically, I used a sandbox to see how it behaves when executed.</p>
 
     <h3>A. Runtime Behavior</h3>
     <p>After running it in a sandbox, it did the following:</p>
     <ul>
       <li>Created a file like <strong>C:\temp\[USER]_Passwords.txt</strong> to store creds.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
       <li>Searched local storage files for Discord tokens.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Token Grab" />
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Discord Storage" />
       <li>Sent the data to the webhook.</li>
     </ul>
 
@@ -132,7 +133,6 @@
       <li>The malware established HTTP connection to a Discord webhook.</li>
       <li>Sent token and password data in plain text.</li>
     </ul>
-    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Webhook Exfiltration" />
 
     <h3>C. Cleanup Behavior</h3>
     <p>It also had some kind of cleanup process:</p>
