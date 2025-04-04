@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How I Identified a Malware Discord Token Stealer</title>
+  <title>Analysis of Malware Code (Password & Token Stealer)</title>
 
   <!-- Google Fonts for typography -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -40,6 +40,10 @@
     /* Section Styling */
     section {
       margin: 40px 0;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     section h2 {
@@ -53,13 +57,28 @@
       line-height: 1.8;
     }
 
+    section ul {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    section img {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
     /* Links and Buttons */
     a {
       color: #4CAF50;
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     a:hover {
+      color: #45a049;
       text-decoration: underline;
     }
 
@@ -80,67 +99,68 @@
 
   <!-- Header -->
   <header>
-    <h1>How I Identified a Malware Discord Token Stealer</h1>
+    <h1>Analysis of the Malware Code (Password & Token Stealer)</h1>
   </header>
-
-  <!-- Introduction Section -->
-  <section>
-    <h2>Introduction</h2>
-    <p>In this guide, I'll walk you through how I identified a Discord token stealer malware. This type of malware attempts to steal your Discord tokens and can lead to unauthorized access to your account. Below are the essential steps and tools used in the process of malware analysis.</p>
-  </section>
-
-  <!-- Essential Tools Section -->
-  <section>
-    <h2>Essential Tools Used</h2>
-    <p>Here are the essential tools that helped in identifying the malware's behavior:</p>
-    <ul>
-      <li><strong>Hex Editors</strong> - (HxD) for inspecting file contents.</li>
-      <li><strong>Disassemblers/Decompilers</strong> - (IDA Free, Ghidra) to reverse engineer the code.</li>
-      <li><strong>Debuggers</strong> - (x64dbg, OllyDbg) for debugging the execution process.</li>
-      <li><strong>Network Monitors</strong> - (Wireshark, Fiddler) for capturing and analyzing network traffic.</li>
-      <li><strong>Antivirus Scanners</strong> - (VirusTotal) for checking the file against known malware signatures.</li>
-      <li><strong>File Analysis Tools</strong> - (PE-bear, ExifTool) for detailed analysis of file properties and metadata.</li>
-    </ul>
-  </section>
 
   <!-- Static Analysis Section -->
   <section>
-    <h2>Static Analysis</h2>
-    <p>Static analysis involves examining the malware without executing it. Using tools like VirusTotal and a debugger, we can gain insights into the file's behavior without running the code.</p>
-    <p>For this particular case, I used <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a> to check the file hash and confirm the file was flagged as a keylogger/stealer.</p>
-  </section>
-
-  <!-- Post-Analysis Section -->
-  <section>
-    <h2>Post-Analysis Findings</h2>
-    <p>After the static analysis, the next step was to conduct dynamic analysis. During this phase, the malware executed the following behaviors:</p>
+    <h2>1. Static Analysis</h2>
+    <p>Static analysis is the first phase of malware analysis, where the file is analyzed without being executed. This helps us understand the structure and functionality of the code. In this case, we used tools like <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, hex editors, and disassemblers to identify suspicious functions and behavior.</p>
+    
+    <h3>A. Hex Editor Analysis</h3>
+    <p>Using a hex editor like <strong>HxD</strong>, we can examine the file's raw data. Key findings include:</p>
     <ul>
-      <li>The malware created a temporary text file to store all the stolen Discord tokens.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="StealerBehavior" />
-      <li>It sent the stolen tokens to a remote server using a webhook for exfiltration.</li>
-      <li>The file was then deleted to cover its tracks.</li>
+      <li>Presence of embedded URLs, including Discord webhooks used for exfiltration.</li>
+      <li>Hardcoded paths for local files like C:\temp\[USERNAME]_Passwords.txt.</li>
+      <li>Suspicious strings related to Discord tokens, suggesting the presence of token-stealing functionality.</li>
     </ul>
-    <p>These behaviors were observed using debugging tools like x64dbg and monitored network traffic through Fiddler and Wireshark.</p>
+    
+    <h3>B. VirusTotal Scan</h3>
+    <p>The malware was scanned on <a href="https://www.virustotal.com/" target="_blank">VirusTotal</a>, which flagged it as a token stealer. The file had multiple detections for keylogger activity and information theft.</p>
+    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="VirusTotal Scan Result" />
   </section>
 
-  <!-- Common Malware Behaviors Section -->
+  <!-- Post Analysis Section -->
   <section>
-    <h2>Common Malware Behaviors to Look For</h2>
-    <p>When analyzing malware, especially a token stealer, here are some common behaviors to watch for:</p>
+    <h2>2. Post Analysis</h2>
+    <p>After static analysis, we move on to dynamic (post) analysis to observe the behavior of the malware in real-time. This phase involves running the malware in a controlled environment (sandbox) to monitor its actions.</p>
+
+    <h3>A. Execution Behavior</h3>
+    <p>Upon execution, the malware attempts to:</p>
     <ul>
-      <li>Modifying system files or registry entries</li>
-      <li>Creating persistence mechanisms (e.g., startup entries, scheduled tasks)</li>
-      <li>Establishing network connections to external IPs or domains</li>
-      <li>Injecting code into other processes</li>
-      <li>Disabling security tools or defenses</li>
+      <li>Create the file <strong>C:\temp\[USER]_Passwords.txt</strong> to store any stolen passwords.</li>
+      <li>Scan the system for stored Discord tokens in browser data files (e.g., Chrome's LocalStorage).</li>
+      <li>Exfiltrate the stolen data using a Discord webhook.</li>
+    </ul>
+    
+    <h3>B. Network Activity</h3>
+    <p>During post analysis, we used a network monitoring tool like <strong>Wireshark</strong> to capture outgoing traffic. We observed:</p>
+    <ul>
+      <li>Malware establishing an HTTP connection to a Discord webhook URL.</li>
+      <li>Data being sent in plain text, which included Discord tokens and passwords.</li>
+    </ul>
+    
+    <h3>C. Cleanup Mechanisms</h3>
+    <p>The malware attempts to cover its tracks by:</p>
+    <ul>
+      <li>Deleting the local files containing stolen data after exfiltration.</li>
+      <li>Attempting to delete the malware executable itself to avoid detection.</li>
+    </ul>
+    
+    <h3>D. Analysis Tools Used</h3>
+    <p>The following tools were used to aid in post-analysis:</p>
+    <ul>
+      <li><strong>Wireshark</strong> - for monitoring network traffic.</li>
+      <li><strong>x64dbg</strong> - for debugging the execution process.</li>
+      <li><strong>Fiddler</strong> - for intercepting and analyzing HTTP requests.</li>
     </ul>
   </section>
 
   <!-- Conclusion Section -->
   <section>
-    <h2>Conclusion</h2>
-    <p>Through the use of various malware analysis tools, we were able to identify the malicious behavior of the Discord token stealer. The analysis process involved both static and dynamic techniques, ensuring that we could gather as much information as possible while keeping the environment safe.</p>
-    <p>It's essential to have the right set of tools and knowledge when analyzing malware. By staying up-to-date with the latest threats and analysis techniques, we can protect our systems from cyberattacks.</p>
+    <h2>3. Conclusion</h2>
+    <p>The static and post-analysis confirmed that the malware was a sophisticated password and token stealer. It uses both local and network-based techniques to exfiltrate data to an attacker-controlled Discord webhook. In addition, it has self-cleaning mechanisms to avoid detection and analysis.</p>
+    <p>Static analysis helped identify key functionality, while post-analysis provided insights into its dynamic behavior. Together, these techniques allowed us to fully understand the malware's capabilities and how to mitigate its effects.</p>
   </section>
 
   <!-- Footer -->
