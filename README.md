@@ -1,4 +1,4 @@
-# Malware Analysis Portfolio
+# Malware Analysis and CyberSecurity Portfolio
 
 Hey there! I'm **Aqil Najmi**, and I'm just a high school student who's really into cybersecurity. I'm currently doing the **Google Cybersecurity Professional Certificate** and looking out for other certs too. I made this repo to share how I learn to spot and analyze malware.
 
