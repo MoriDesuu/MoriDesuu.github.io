@@ -32,12 +32,15 @@
 
     header h1 {
       font-size: 2.5rem;
-      margin-bottom: 10px;
     }
 
     section {
-      margin: 40px 0;
-      text-align: center;
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     section h2 {
@@ -49,6 +52,48 @@
     section p {
       font-size: 1.1rem;
       line-height: 1.8;
+    }
+
+    ul {
+      margin-top: 20px;
+      list-style: none;
+      padding-left: 0;
+      font-size: 1.1rem;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .back-button a {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background-color: #45a049;
     }
 
     footer {
@@ -74,11 +119,17 @@
   <section>
     <h2>Feel free to reach out!</h2>
     <p>Hey! I'm a student getting into cybersecurity and would love to connect with anyone in the field. If you’ve got advice, tips, or just wanna chat about cyber stuff — hit me up!</p>
+    
     <ul>
       <li>Email: <a href="mailto:aqilnajmijr@gmail.com">aqilnajmijr@gmail.com</a></li>
       <li>Coursera Profile: <a href="https://www.coursera.org/learner/aqil-najmi-desuu" target="_blank">Check out my Coursera journey here!</a></li>
       <li>LinkedIn: <a href="https://www.linkedin.com/in/aqil-najmi-4870a935a/" target="_blank">Connect with me on LinkedIn</a></li>
     </ul>
+  </section>
+
+  <!-- Back Button -->
+  <section class="back-button">
+    <a href="index.html">⬅ Back to Home</a>
   </section>
 
   <!-- Footer -->
