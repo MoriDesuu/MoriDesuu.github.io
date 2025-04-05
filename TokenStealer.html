@@ -141,42 +141,6 @@
       font-weight: bold;
     }
 
-    /* Custom Mouse Cursor */
-    .cursor {
-      position: fixed;
-      pointer-events: none;
-      width: 20px;
-      height: 20px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 10000;
-    }
-
-    .cursor:hover {
-      transform: scale(1.5) translate(-50%, -50%);
-    }
-
-    /* Hide default cursor */
-    * {
-      cursor: none !important;
-    }
-
-    /* Cursor Trail Effect */
-    .cursor-trail {
-      position: fixed;
-      pointer-events: none;
-      width: 10px;
-      height: 10px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.7;
-      transition: opacity 0.3s ease, transform 0.1s ease;
-      z-index: 9999;
-    }
-
   </style>
 </head>
 <body>
@@ -191,12 +155,20 @@
     <a href="index.html">Home</a>
   </div>
 
-  <!-- Custom Mouse Cursor -->
-  <div class="cursor" id="cursor"></div>
-
   <header>
     <h1>Analysis of Discord Token Stealer</h1>
   </header>
+
+  <section>
+    <h2>Overview and File Information</h2>
+    <p>I found this file from a YouTube video where it was pretending to be a cracked program. After looking into it, I realized it was actually a password and token stealer that mainly targets Discord. When run, it collects sensitive info from the victim’s computer, sends it to a server controlled by the attacker, and then tries to delete any traces of itself. This just shows how risky it is to download and run random files from the internet, especially if they seem too good to be true.</p>
+
+    <h3>File Details</h3>
+    <ul>
+      <li><strong>File Name:</strong> <code>StealerBin.exe</code></li>
+      <li><strong>File Size:</strong> 8.2 MB</li>
+    </ul>
+  </section>
 
   <section>
     <h2>1. Static Analysis</h2>
@@ -220,7 +192,7 @@
   </section>
 
   <section>
-    <h2>2. Post Analysis</h2>
+    <h2>2. Dynamic Analysis</h2>
     <p>After reviewing the code statically, I used a sandbox to see how it behaves when executed.</p>
 
     <h3>A. Runtime Behavior</h3>
@@ -272,35 +244,6 @@
         body.style.visibility = "visible";
         body.style.opacity = 1;
       }, 1000);
-    });
-
-    // Custom Cursor with Trail Effect
-    const cursor = document.getElementById('cursor');
-    let trailElements = [];
-
-    document.addEventListener('mousemove', (e) => {
-      // Main cursor position
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
-
-      // Create trail element
-      const trail = document.createElement('div');
-      trail.classList.add('cursor-trail');
-      document.body.appendChild(trail);
-      trail.style.left = `${e.clientX}px`;
-      trail.style.top = `${e.clientY}px`;
-
-      trailElements.push(trail);
-
-      // Fade out and remove trail element after a short delay
-      setTimeout(() => {
-        trail.style.opacity = '0';
-      }, 150);
-
-      setTimeout(() => {
-        document.body.removeChild(trail);
-        trailElements = trailElements.filter(t => t !== trail);
-      }, 300);
     });
   </script>
 
