@@ -5,81 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cybersecurity Portfolio | Aqil Najmi</title>
 
-  <!-- Google Fonts for better typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
 
   <style>
-    body, h1, h2, p, ul, li, a {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
+      font-family: 'Roboto', sans-serif;
       background-color: #121212;
-      color: #e0e0e0;
+      color: #f1f1f1;
       line-height: 1.6;
       padding: 20px;
+      overflow-x: hidden;
+      cursor: none; /* Hide default cursor */
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Preloader */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      border: 8px solid #2a2a2a;
+      border-top: 8px solid #ff69b4;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     header {
-      text-align: center;
       background-color: #ff1493;
-      color: white;
-      padding: 20px;
-      border-radius: 8px;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 10px;
     }
 
     nav ul {
       list-style-type: none;
       padding: 0;
+      margin-top: 15px;
     }
 
     nav ul li {
-      display: inline;
-      margin-right: 20px;
+      display: inline-block;
+      margin: 0 15px;
     }
 
     nav ul li a {
       color: white;
-      font-size: 1.2rem;
-      text-decoration: none;
+      font-size: 1.1rem;
       font-weight: 500;
+      transition: color 0.3s ease;
     }
 
     nav ul li a:hover {
-      text-decoration: underline;
+      color: #ffb6d2;
     }
 
     section {
-      margin: 40px 0;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(255, 20, 147, 0.1);
     }
 
     section h2 {
       font-size: 2rem;
       color: #ff69b4;
-      margin-bottom: 10px;
-    }
-
-    section p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 1rem;
-      color: #999;
-    }
-
-    footer p {
-      margin-top: 10px;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #ff69b4;
+      padding-bottom: 10px;
     }
 
     .projects ul {
@@ -88,33 +116,103 @@
     }
 
     .projects ul li {
-      margin: 20px 0;
+      margin-bottom: 30px;
+      background-color: #2a2a2a;
+      padding: 20px;
+      border-left: 4px solid #ff69b4;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .projects ul li.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .projects ul li:hover {
+      transform: scale(1.02);
     }
 
     .projects ul li a {
-      font-size: 1.2rem;
       color: #ff69b4;
-      text-decoration: none;
+      font-size: 1.3rem;
       font-weight: 500;
-    }
-
-    .projects ul li a:hover {
-      color: #ffffff;
-      text-decoration: underline;
+      display: block;
     }
 
     .project-date {
       font-size: 0.95rem;
       color: #bbb;
-      margin-top: 4px;
+      margin-top: 5px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 0.95rem;
+      color: #888;
+    }
+
+    /* Glowing Cursor */
+    #cursor-dot {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 12px #ff69b4, 0 0 24px #ff69b4;
+      transition: top 0.1s ease, left 0.1s ease;
+    }
+
+    /* Glowing Trail */
+    .cursor-trail {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      animation: trail-animation 0.6s ease-out forwards;
+    }
+
+    @keyframes trail-animation {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* Hover Interaction */
+    .projects ul li:hover {
+      transform: scale(1.05);
+      transition: all 0.2s ease;
     }
   </style>
 </head>
 <body>
 
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Glowing Cursor -->
+  <div id="cursor-dot"></div>
+
   <!-- Header -->
   <header>
-    <h1>Welcome to My Cybersecurity Portfolio</h1>
+    <h1>Cybersecurity Portfolio</h1>
     <nav>
       <ul>
         <li><a href="about.html">About Me</a></li>
@@ -124,15 +222,16 @@
   </header>
 
   <!-- Projects Section -->
-  <section id="projects" class="projects">
+  <section class="projects">
     <h2>Projects</h2>
     <ul>
       <li>
         <a href="TokenStealer.html">How I Identified a Malware Discord Token Stealer</a>
-        <div class="project-date">Date: 9/7/2023</div>
+        <div class="project-date">📅 Date: 9/7/2023</div>
       </li>
       <li>
-        <a href="link-to-another-project">Another Cybersecurity Project</a>
+        <a href="#">Another Cybersecurity Project</a>
+        <div class="project-date">📅 Date: Coming Soon</div>
       </li>
     </ul>
   </section>
@@ -142,5 +241,43 @@
     <p>&copy; 2025 Aqil Najmi. All Rights Reserved.</p>
   </footer>
 
+  <!-- JavaScript -->
+  <script>
+    // Preloader logic
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      preloader.style.transition = "opacity 0.5s ease";
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 500);
+
+      // Animate project cards
+      document.querySelectorAll('.projects ul li').forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('visible');
+        }, index * 300);
+      });
+    });
+
+    // Cursor follower
+    const cursor = document.getElementById("cursor-dot");
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+
+      // Create cursor trail
+      let trail = document.createElement("div");
+      trail.classList.add("cursor-trail");
+      document.body.appendChild(trail);
+      trail.style.top = `${e.clientY}px`;
+      trail.style.left = `${e.clientX}px`;
+
+      // Remove trail after animation ends
+      setTimeout(() => {
+        trail.remove();
+      }, 600);
+    });
+  </script>
 </body>
 </html>
