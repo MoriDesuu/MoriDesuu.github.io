@@ -96,13 +96,6 @@
       text-decoration: none;
       font-weight: bold;
     }
-
-    .image {
-      width: 100%;
-      max-width: 600px;
-      margin-top: 20px;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -113,6 +106,16 @@
   <header>
     <h1>Analysis of Remote Access Trojan(Remcos RAT)</h1>
   </header>
+
+  <!-- Introduction Section -->
+  <section>
+    <h2>Sample Overview</h2>
+    <p><strong>File Name:</strong> <code>unspattered.exe</code></p>
+    <p><strong>File Size:</strong> 2.3 MB</p>
+    <p><strong>Source:</strong> The file was retrieved from a website that claimed to offer cracked software. Caution should be exercised as files from such sources are often malicious.</p>
+    <p>This report analyzes a suspected Remcos RAT sample. The sample was flagged by multiple AV engines, and our analysis reveals it contains typical malware behavior like persistence mechanisms, network communications with a C2 server, and evasion tactics.</p>
+    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/Capture.JPG" alt="File Name Image" class="image">
+  </section>
 
   <section>
     <h2>1. Static Analysis</h2>
@@ -160,7 +163,6 @@
   <section>
     <h2>4. Conclusion</h2>
     <p>This one’s definitely Remcos RAT. It drops files, sets up persistence, calls home to a shady server, and tries to hide itself with mutexes and cleanup tactics. Classic RAT behavior.</p>
-    <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/Capture.JPG" alt="File Name Image" class="image">
   </section>
 
   <footer>
