@@ -22,7 +22,7 @@
       line-height: 1.6;
       padding: 20px;
       overflow-x: hidden;
-      cursor: none; /* Hide default cursor */
+      cursor: none;
     }
 
     a {
@@ -30,7 +30,6 @@
       color: inherit;
     }
 
-    /* Preloader */
     #preloader {
       position: fixed;
       top: 0;
@@ -132,7 +131,8 @@
     }
 
     .projects ul li:hover {
-      transform: scale(1.02);
+      transform: scale(1.05);
+      transition: all 0.2s ease;
     }
 
     .projects ul li a {
@@ -155,7 +155,6 @@
       color: #888;
     }
 
-    /* Glowing Cursor */
     #cursor-dot {
       position: fixed;
       width: 12px;
@@ -170,7 +169,6 @@
       transition: top 0.1s ease, left 0.1s ease;
     }
 
-    /* Glowing Trail */
     .cursor-trail {
       position: absolute;
       width: 8px;
@@ -191,12 +189,6 @@
         transform: scale(0);
         opacity: 0;
       }
-    }
-
-    /* Hover Interaction */
-    .projects ul li:hover {
-      transform: scale(1.05);
-      transition: all 0.2s ease;
     }
   </style>
 </head>
@@ -233,11 +225,11 @@
         <a href="#">How I Identified a Remote Access Trojan (RAT)</a>
         <div class="project-date">Date: Coming Soon</div>
       </li>
+      <li>
+        <a href="FakeFlashInstaller.html">How I Analyzed a BotNet</a>
+        <div class="project-date">Date: 4/4/2025</div>
+      </li>
     </ul>
-       <li>
-  <a href="FakeFlashInstaller.html">How I Analyzed a BotNet</a>
-  <div class="project-date">Date: 4/4/2025</div>
-</li>
   </section>
 
   <!-- Footer -->
@@ -247,7 +239,6 @@
 
   <!-- JavaScript -->
   <script>
-    // Preloader logic
     window.addEventListener("load", () => {
       const preloader = document.getElementById("preloader");
       preloader.style.transition = "opacity 0.5s ease";
@@ -256,7 +247,6 @@
         preloader.style.display = "none";
       }, 500);
 
-      // Animate project cards
       document.querySelectorAll('.projects ul li').forEach((item, index) => {
         setTimeout(() => {
           item.classList.add('visible');
@@ -264,20 +254,17 @@
       });
     });
 
-    // Cursor follower
     const cursor = document.getElementById("cursor-dot");
     document.addEventListener("mousemove", (e) => {
       cursor.style.top = `${e.clientY}px`;
       cursor.style.left = `${e.clientX}px`;
 
-      // Create cursor trail
       let trail = document.createElement("div");
       trail.classList.add("cursor-trail");
       document.body.appendChild(trail);
       trail.style.top = `${e.clientY}px`;
       trail.style.left = `${e.clientX}px`;
 
-      // Remove trail after animation ends
       setTimeout(() => {
         trail.remove();
       }, 600);
