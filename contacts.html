@@ -1,140 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact | Aqil Najmi</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+
   <style>
-    body, h1, h2, p, ul, li, a {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
+      box-sizing: border-box;
     }
 
     body {
+      font-family: 'Roboto', sans-serif;
       background-color: #121212;
-      color: #e0e0e0;
+      color: #f1f1f1;
       line-height: 1.6;
       padding: 20px;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      border: 8px solid #2a2a2a;
+      border-top: 8px solid #ff69b4;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     header {
+      background-color: #ff1493;
+      padding: 30px 20px;
       text-align: center;
-      background-color: #FF4B8B;
-      color: white;
-      padding: 20px;
-      border-radius: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffb6d2;
     }
 
     section {
-      max-width: 800px;
-      margin: 40px auto;
-      background-color: #1e1e1e;
+      max-width: 900px;
+      margin: 50px auto;
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(255, 20, 147, 0.1);
+      
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.3s ease;
+    }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     section h2 {
       font-size: 2rem;
-      color: #FF4B8B;
-      margin-top: 0; 
-      margin-bottom: 15px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
+      color: #ff69b4;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #ff69b4;
+      padding-bottom: 10px;
     }
 
-    section p {
+    p {
       font-size: 1.1rem;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     ul {
-      margin-left: 20px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li {
       margin-bottom: 20px;
-      list-style: disc;
+      background-color: #2a2a2a;
+      padding: 15px 20px;
+      border-left: 4px solid #ff69b4;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
-    li {
-      font-size: 1.05rem;
-      margin-bottom: 5px;
+    ul li:hover {
+      transform: scale(1.02);
+      background-color: #333;
     }
 
-    strong {
-      color: #e0e0e0;
+    ul li strong {
+      color: #ff69b4;
+      display: inline-block;
+      width: 110px;
     }
 
-    a {
-      color: #FF4B8B;
-      text-decoration: none;
+    ul li a {
+      color: #fff;
       font-weight: 500;
+      transition: color 0.2s ease;
     }
 
-    a:hover {
+    ul li a:hover {
+      color: #ffb6d2;
       text-decoration: underline;
     }
 
     .back-button-container {
       text-align: center;
-      margin-top: 30px;
+      margin-top: 40px;
     }
 
     .back-button {
       display: inline-block;
-      background-color: #FF4B8B;
+      background-color: #ff69b4;
       color: white;
       padding: 12px 24px;
-      border-radius: 6px;
-      text-decoration: none;
+      border-radius: 8px;
       font-weight: 500;
       font-size: 1.1rem;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
 
     .back-button:hover {
-      background-color: #FF2A66;
-      text-decoration: none;
+      background-color: #ff1493;
+      transform: scale(1.05);
     }
 
     footer {
       text-align: center;
-      margin-top: 50px;
-      font-size: 0.9rem;
+      margin-top: 80px;
+      font-size: 0.95rem;
       color: #888;
+    }
+
+    #cursor-dot {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 12px #ff69b4, 0 0 24px #ff69b4;
+      top: -20px;
+      left: -20px;
+    }
+
+    .cursor-trail {
+      position: fixed; 
+      width: 8px;
+      height: 8px;
+      background-color: #ff69b4;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.6;
+      transform: translate(-50%, -50%);
+      animation: trail-animation 0.5s ease-out forwards;
+    }
+
+    @keyframes trail-animation {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <div id="cursor-dot"></div>
+
   <header>
-    <h1>Let's Connect!</h1>
+    <h1>Malware Analysis Portfolio | AQIL NAJMI</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <section>
+  <section id="contact-content">
     <h2>Feel Free to Reach Out</h2>
-    <p>I'm always happy to connect with fellow students, cybersecurity enthusiasts and professionals in the industry.</p>
+    <p>I'm always happy to connect with fellow students, cybersecurity enthusiasts, and professionals in the industry.</p>
     
     <ul>
-      <li><strong>Email:</strong> <a href="mailto:aqilnajmijr@gmail.com">aqilnajmijr@gmail.com</a></li>
-      <li><strong>Coursera:</strong> <a href="https://www.coursera.org/learner/aqil-najmi-desuu" target="_blank">View my certificates and learning journey.</a></li>
-      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aqil-najmi-4870a935a/" target="_blank">Connect with me.</a></li>
+      <li>
+        <strong>Email:</strong> 
+        <a href="mailto:aqilnajmijr@gmail.com">aqilnajmijr@gmail.com</a>
+      </li>
+      <li>
+        <strong>Coursera:</strong> 
+        <a href="https://www.coursera.org/learner/aqil-najmi-desuu" target="_blank">View my certificates and learning journey.</a>
+      </li>
+      <li>
+        <strong>LinkedIn:</strong> 
+        <a href="https://www.linkedin.com/in/aqil-najmi-4870a935a/" target="_blank">Connect with me.</a>
+      </li>
     </ul>
-  </section>
 
-  <div class="back-button-container">
-    <a href="index.html" class="back-button">Back to Home</a>
-  </div>
+    <div class="back-button-container">
+      <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+  </section>
 
   <footer>
     <p>&copy; 2026 Aqil Najmi. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      preloader.style.transition = "opacity 0.5s ease";
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 500);
+
+      setTimeout(() => {
+        document.getElementById('contact-content').classList.add('visible');
+      }, 200);
+    });
+
+    const cursor = document.getElementById("cursor-dot");
+    let lastTrailTime = 0;
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.top = `${e.clientY}px`;
+      cursor.style.left = `${e.clientX}px`;
+
+      const now = Date.now();
+      if (now - lastTrailTime > 15) {
+        let trail = document.createElement("div");
+        trail.classList.add("cursor-trail");
+        trail.style.top = `${e.clientY}px`;
+        trail.style.left = `${e.clientX}px`;
+        document.body.appendChild(trail);
+
+        setTimeout(() => {
+          trail.remove();
+        }, 500);
+        
+        lastTrailTime = now;
+      }
+    });
+  </script>
 </body>
 </html>
