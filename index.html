@@ -21,7 +21,7 @@
       line-height: 1.6;
       padding: 20px;
       overflow-x: hidden;
-      cursor: none; /* Hides default cursor */
+      cursor: none;
     }
 
     a {
@@ -121,7 +121,6 @@
       border-radius: 8px;
       opacity: 0;
       transform: translateY(20px);
-      /* Smooth combination of cascade entrance and hover transitions */
       transition: opacity 0.6s ease, transform 0.3s ease, background-color 0.3s ease;
     }
 
@@ -155,7 +154,6 @@
       color: #888;
     }
 
-    /* Fixed Cursor Tracking */
     #cursor-dot {
       position: fixed;
       width: 12px;
@@ -167,13 +165,12 @@
       z-index: 10000;
       transform: translate(-50%, -50%);
       box-shadow: 0 0 12px #ff69b4, 0 0 24px #ff69b4;
-      /* Removed CSS transitions on coordinates to let JS handle it smoothly */
       top: -20px;
       left: -20px;
     }
 
     .cursor-trail {
-      position: fixed; /* Fixed alignment over absolute to handle page scrolls */
+      position: fixed; 
       width: 8px;
       height: 8px;
       background-color: #ff69b4;
@@ -237,7 +234,6 @@
   </footer>
 
   <script>
-    // Handle Preloader & Entrance Cascades
     window.addEventListener("load", () => {
       const preloader = document.getElementById("preloader");
       preloader.style.transition = "opacity 0.5s ease";
@@ -249,21 +245,18 @@
       document.querySelectorAll('.projects ul li').forEach((item, index) => {
         setTimeout(() => {
           item.classList.add('visible');
-        }, index * 200); // Slightly accelerated for crispness
+        }, index * 200); 
       });
     });
 
-    // Custom Cursor with Throttled DOM Trail Creation
     const cursor = document.getElementById("cursor-dot");
     let lastTrailTime = 0;
 
     document.addEventListener("mousemove", (e) => {
-      // Use requestAnimationFrame style immediate updates for the main cursor dot
       cursor.style.top = `${e.clientY}px`;
       cursor.style.left = `${e.clientX}px`;
 
       const now = Date.now();
-      // Only generate a trail particle every 15ms to prevent DOM spamming
       if (now - lastTrailTime > 15) {
         let trail = document.createElement("div");
         trail.classList.add("cursor-trail");
