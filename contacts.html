@@ -42,26 +42,30 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
+    /* FIXED: Matched the About Me header color styling, spacing, and border line */
     section h2 {
       font-size: 2rem;
       color: #FF4B8B;
+      margin-top: 0; /* Ensures it acts like h2:first-of-type on the about page */
       margin-bottom: 15px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 5px;
     }
 
     section p {
       font-size: 1.1rem;
-      line-height: 1.8;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     ul {
-      list-style: none;
-      padding-left: 0;
-      font-size: 1.1rem;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      list-style: disc;
     }
 
-    ul li {
-      margin-bottom: 12px;
+    li {
+      font-size: 1.05rem;
+      margin-bottom: 5px;
     }
 
     strong {
