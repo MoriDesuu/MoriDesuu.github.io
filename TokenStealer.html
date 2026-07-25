@@ -17,40 +17,63 @@
       background-color: #121212;
       color: #e0e0e0;
       line-height: 1.6;
-      padding: 20px;
+      padding: 15px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s ease;
     }
 
+    /* Floating Back to Home Button - Mobile standard flow */
+    .top-back {
+      margin-bottom: 15px;
+    }
+
+    .top-back a {
+      display: inline-block;
+      background-color: #000;
+      color: #ff1493;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #ff1493;
+    }
+
     header {
       background-color: #ff1493;
       color: white;
-      padding: 20px;
+      padding: 20px 15px;
       text-align: center;
       border-radius: 8px;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 1.6rem;
+      word-wrap: break-word;
     }
 
     section {
-      margin: 40px 0;
-      padding: 20px;
+      margin: 25px 0;
+      padding: 15px;
       background-color: #1e1e1e;
       border-radius: 8px;
     }
 
     section h2 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #ff69b4;
       margin-bottom: 10px;
     }
 
+    section h3 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin: 15px 0 8px 0;
+    }
+
     section p, section ul {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.7;
       color: #ddd;
     }
 
@@ -59,17 +82,22 @@
       list-style-type: disc;
     }
 
+    section ul li {
+      margin-bottom: 8px;
+    }
+
     section img {
       width: 100%;
       max-width: 600px;
+      height: auto;
       display: block;
-      margin: 20px 0;
+      margin: 15px 0;
       border-radius: 8px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     section img:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(255, 105, 180, 0.6);
     }
 
@@ -84,8 +112,8 @@
 
     footer {
       text-align: center;
-      margin-top: 50px;
-      font-size: 1rem;
+      margin-top: 40px;
+      font-size: 0.85rem;
       color: #888;
     }
 
@@ -94,6 +122,7 @@
       background-color: #333;
       padding: 2px 6px;
       border-radius: 4px;
+      word-break: break-word;
     }
 
     /* Preloader */
@@ -124,21 +153,50 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Floating Back to Home Button */
-    .top-back {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 100;
-    }
+    /* Desktop Adjustments */
+    @media (min-width: 768px) {
+      body {
+        padding: 20px;
+      }
 
-    .top-back a {
-      background-color: Black;
-      color: #ff1493;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
+      .top-back {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        margin-bottom: 0;
+      }
+
+      .top-back a {
+        border: none;
+      }
+
+      header {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      section {
+        margin: 40px 0;
+        padding: 20px;
+      }
+
+      section h2 {
+        font-size: 2rem;
+      }
+
+      section p, section ul {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      footer {
+        font-size: 1rem;
+        margin-top: 50px;
+      }
     }
   </style>
 </head>
