@@ -19,9 +19,15 @@
       background-color: #121212;
       color: #f1f1f1;
       line-height: 1.6;
-      padding: 20px;
+      padding: 15px;
       overflow-x: hidden;
-      cursor: none;
+    }
+
+    /* Enable custom cursor styles ONLY for devices with precise pointers (mouse) */
+    @media (hover: hover) and (pointer: fine) {
+      body {
+        cursor: none;
+      }
     }
 
     a {
@@ -58,15 +64,16 @@
 
     header {
       background-color: #ff1493;
-      padding: 30px 20px;
+      padding: 25px 15px;
       text-align: center;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
-      font-size: 2.8rem;
+      font-size: 2rem;
       margin-bottom: 10px;
+      word-wrap: break-word;
     }
 
     nav ul {
@@ -77,12 +84,12 @@
 
     nav ul li {
       display: inline-block;
-      margin: 0 15px;
+      margin: 5px 10px;
     }
 
     nav ul li a {
       color: white;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 500;
       transition: color 0.3s ease;
     }
@@ -93,17 +100,17 @@
 
     section {
       max-width: 900px;
-      margin: 50px auto;
-      padding: 30px;
+      margin: 30px auto;
+      padding: 20px;
       background-color: #1e1e1e;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(255, 20, 147, 0.1);
     }
 
     section h2 {
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: #ff69b4;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       border-bottom: 2px solid #ff69b4;
       padding-bottom: 10px;
     }
@@ -114,9 +121,9 @@
     }
 
     .projects ul li {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       background-color: #2a2a2a;
-      padding: 20px;
+      padding: 18px;
       border-left: 4px solid #ff69b4;
       border-radius: 8px;
       opacity: 0;
@@ -130,26 +137,26 @@
     }
 
     .projects ul li.visible:hover {
-      transform: scale(1.02);
+      transform: scale(1.01);
       background-color: #333;
     }
 
     .projects ul li a {
       color: #ff69b4;
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       font-weight: 500;
       display: block;
+      margin-bottom: 5px;
     }
 
     .project-date {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: #bbb;
       margin-top: 5px;
       display: inline-block;
-      margin-right: 12px;
+      margin-right: 10px;
     }
 
-    /* Improvised Read Time Badge */
     .read-time {
       display: inline-flex;
       align-items: center;
@@ -171,44 +178,47 @@
       font-size: 0.85rem;
     }
 
-    .projects ul li:hover .read-time {
-      background-color: rgba(255, 105, 180, 0.25);
-      border-color: rgba(255, 105, 180, 0.6);
-      box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
-    }
-
     footer {
       text-align: center;
-      margin-top: 80px;
-      font-size: 0.95rem;
+      margin-top: 50px;
+      font-size: 0.85rem;
       color: #888;
     }
 
-    #cursor-dot {
-      position: fixed;
-      width: 12px;
-      height: 12px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      pointer-events: none;
-      mix-blend-mode: difference;
-      z-index: 10000;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 12px #ff69b4, 0 0 24px #ff69b4;
-      top: -20px;
-      left: -20px;
+    /* Custom Cursor Elements */
+    #cursor-dot, .cursor-trail {
+      display: none; /* Hide by default for touch devices */
     }
 
-    .cursor-trail {
-      position: fixed; 
-      width: 8px;
-      height: 8px;
-      background-color: #ff69b4;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0.6;
-      transform: translate(-50%, -50%);
-      animation: trail-animation 0.5s ease-out forwards;
+    @media (hover: hover) and (pointer: fine) {
+      #cursor-dot {
+        display: block;
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background-color: #ff69b4;
+        border-radius: 50%;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        z-index: 10000;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 12px #ff69b4, 0 0 24px #ff69b4;
+        top: -20px;
+        left: -20px;
+      }
+
+      .cursor-trail {
+        display: block;
+        position: fixed; 
+        width: 8px;
+        height: 8px;
+        background-color: #ff69b4;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.6;
+        transform: translate(-50%, -50%);
+        animation: trail-animation 0.5s ease-out forwards;
+      }
     }
 
     @keyframes trail-animation {
@@ -219,6 +229,38 @@
       100% {
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments for screens larger than mobile */
+    @media (min-width: 600px) {
+      body {
+        padding: 20px;
+      }
+      header {
+        padding: 30px 20px;
+      }
+      header h1 {
+        font-size: 2.8rem;
+      }
+      nav ul li {
+        margin: 0 15px;
+      }
+      nav ul li a {
+        font-size: 1.1rem;
+      }
+      section {
+        margin: 50px auto;
+        padding: 30px;
+      }
+      section h2 {
+        font-size: 2rem;
+      }
+      .projects ul li a {
+        font-size: 1.3rem;
+      }
+      .project-date {
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -286,28 +328,31 @@
       });
     });
 
-    const cursor = document.getElementById("cursor-dot");
-    let lastTrailTime = 0;
+    // Only instantiate cursor trails if the user is using a primary mouse device
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cursor = document.getElementById("cursor-dot");
+      let lastTrailTime = 0;
 
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.top = `${e.clientY}px`;
+        cursor.style.left = `${e.clientX}px`;
 
-      const now = Date.now();
-      if (now - lastTrailTime > 15) {
-        let trail = document.createElement("div");
-        trail.classList.add("cursor-trail");
-        trail.style.top = `${e.clientY}px`;
-        trail.style.left = `${e.clientX}px`;
-        document.body.appendChild(trail);
+        const now = Date.now();
+        if (now - lastTrailTime > 15) {
+          let trail = document.createElement("div");
+          trail.classList.add("cursor-trail");
+          trail.style.top = `${e.clientY}px`;
+          trail.style.left = `${e.clientX}px`;
+          document.body.appendChild(trail);
 
-        setTimeout(() => {
-          trail.remove();
-        }, 500);
-        
-        lastTrailTime = now;
-      }
-    });
+          setTimeout(() => {
+            trail.remove();
+          }, 500);
+          
+          lastTrailTime = now;
+        }
+      });
+    }
   </script>
 </body>
 </html>
