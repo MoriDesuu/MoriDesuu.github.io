@@ -23,7 +23,6 @@
       overflow-x: hidden;
     }
 
-    /* Enable custom cursor styles ONLY for devices with precise pointers (mouse) */
     @media (hover: hover) and (pointer: fine) {
       body {
         cursor: none;
@@ -328,7 +327,6 @@
       });
     });
 
-    // Only instantiate cursor trails if the user is using a primary mouse device
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       const cursor = document.getElementById("cursor-dot");
       let lastTrailTime = 0;
