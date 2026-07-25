@@ -128,7 +128,6 @@
             margin-top: 0;
         }
 
-        /* Table Styling */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -189,11 +188,11 @@
 
     <header>
         <h1>Security Assessment Report</h1>
-        <p>Client-side Security Review: Anonymous Student Confession Portal</p>
+        <p>Security Review: Anonymous Student Confession Portal</p>
     </header>
 
     <section>
-        <h2>Overview & File Information</h2>
+        <h2>Overview &amp; File Information</h2>
         <p>This website is an anonymous student confession portal where users can submit messages that are forwarded directly to Telegram. While the website advertises anonymity, inspection of the client-side source code reveals that sensitive implementation details and user data collection mechanisms are exposed.</p>
         <p>Because all JavaScript executes in the user's browser, anyone can inspect the source code using Developer Tools and view hardcoded credentials, API endpoints, and data collection logic. This demonstrates why secrets should never be embedded in client-side applications.</p>
 
@@ -257,7 +256,7 @@
 
         <h3>Hardcoded Telegram Credentials</h3>
         <p>The source code contains a Telegram bot token directly inside JavaScript.</p>
-        <div class="screenshot-placeholder">[ Screenshot of the BOT_TOKEN variable ]</div>
+        <div class="screenshot-placeholder">Capture9.JPG</div>
         <p>Because JavaScript is downloaded to every visitor's browser, anyone can reveal this token by using:</p>
         <ul>
             <li>Inspect Element</li>
@@ -268,14 +267,14 @@
 
         <h3>Hardcoded Chat IDs</h3>
         <p>The application also exposes Telegram Chat IDs used for message forwarding.</p>
-        <div class="screenshot-placeholder">[ Screenshot of Hardcoded Chat IDs ]</div>
+        <div class="screenshot-placeholder">Capture9.JPG</div>
         <p>This reveals where submitted messages are being delivered and exposes internal implementation details that normally should remain server-side.</p>
 
         <h3>Direct Telegram API Calls</h3>
         <p>Instead of sending submissions to a backend server, the website directly communicates with:</p>
         <p><code>https://api.telegram.org/bot&lt;TOKEN&gt;/sendMessage</code></p>
         <p>This means every visitor can observe exactly how messages are transmitted.</p>
-        <div class="screenshot-placeholder">[ Screenshot of fetch() function ]</div>
+        <div class="screenshot-placeholder">Capture7.JPG and Capture8.JPG</div>
 
         <h3>Client-side Data Collection</h3>
         <p>The JavaScript collects various information from visitors including:</p>
@@ -292,7 +291,7 @@
             <li>Approximate location from IP lookup</li>
             <li>GPS coordinates if permission is granted</li>
         </ul>
-        <div class="screenshot-placeholder">[ Screenshot of forensic collection function ]</div>
+        <div class="screenshot-placeholder">Capture9.JPG</div>
     </section>
 
     <section>
@@ -319,8 +318,7 @@
             <h3>C. Personal Data Collection</h3>
             <p>Although the website is presented as anonymous, the code collects multiple pieces of device and browser information before forwarding data to Telegram (e.g., fingerprint info, persistent IDs, IP/GPS location, hardware specs, ISP data).</p>
             <div class="risk-section">
-                <span class="risk-title">Risk:</span> Collecting this information reduces the level of anonymity users expect.
-                <br>
+                <span class="risk-title">Risk:</span> Collecting this information reduces the level of anonymity users expect.<br>
                 <span class="rec-title">Recommendation:</span> Developers should clearly disclose what information is collected and ensure compliance with applicable privacy laws and institutional policies.
             </div>
         </div>
