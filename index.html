@@ -145,6 +145,36 @@
       font-size: 0.95rem;
       color: #bbb;
       margin-top: 5px;
+      display: inline-block;
+      margin-right: 12px;
+    }
+
+    /* Improvised Read Time Badge */
+    .read-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #ffb6d2;
+      background-color: rgba(255, 105, 180, 0.12);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 105, 180, 0.3);
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+      transition: all 0.3s ease;
+    }
+
+    .read-time::before {
+      content: '⏱';
+      font-size: 0.85rem;
+    }
+
+    .projects ul li:hover .read-time {
+      background-color: rgba(255, 105, 180, 0.25);
+      border-color: rgba(255, 105, 180, 0.6);
+      box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
     }
 
     footer {
