@@ -115,7 +115,6 @@
       font-family: monospace;
     }
 
-    /* Meta Grid */
     .meta-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -181,7 +180,6 @@
     .badge.medium { background-color: #f97316; }
     .badge.low { background-color: #eab308; color: #000; }
 
-    /* Finding Card Styling */
     .finding-card {
       background-color: #262626;
       border: 1px solid #333;
@@ -249,7 +247,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Floating Back to Home Button */
     .top-back {
       position: fixed;
       top: 20px;
@@ -289,8 +286,8 @@
 
   <section>
     <h2>Overview &amp; File Information</h2>
-    <p>This project is an anonymous student confession website. Users can send a confession, and the message is forwarded to Telegram. While looking through the website source code, I noticed that some important information and parts of the application's logic can be seen by anyone using the browser. As someone who is still learning web security, I found this interesting because it shows why developers should be careful about what they put in frontend code.</p>
-    <p>Since JavaScript runs in the user's browser, anyone can open Developer Tools or View Source to see the code. During my review, I was able to see things like API requests and other implementation details. From what I have learned, sensitive information should not be stored in client-side JavaScript because users can easily inspect it.</p>
+    <p>This project is an anonymous student confession website. Users can send a confession and its  message is forwarded to Telegram. While looking through the website source code I noticed that some important information and the source can be seen by anyone using the browser. As someone who is still learning web security I found this interesting because it shows why developers should be careful about what they put in frontend code.</p>
+    <p>Since JavaScript runs in the user browser anyone can open Developer Tools or View Source to see the code. During my review, I was able to see things like API requests and other implementation details. From what I have learned sensitive information should not be stored in client side JavaScript because users can easily inspect it.</p>
 
     <div class="meta-grid">
       <div class="meta-item">
@@ -307,7 +304,7 @@
       </div>
       <div class="meta-item">
         <strong>Analysis Type</strong>
-        Client-side Security Review
+        Security Review
       </div>
     </div>
   </section>
@@ -348,10 +345,10 @@
 
   <section>
     <h2>1. Static Analysis</h2>
-    <p>I only performed a static analysis for this project. I reviewed the HTML and JavaScript files without testing or interacting with the backend server.</p>
+    <p>I only performed a static analysis for this project, I reviewed the HTML and JavaScript files without testing or interacting with the backend.</p>
 
     <h3>Hardcoded Telegram Credentials</h3>
-    <p>While checking the JavaScript code, I noticed that the Telegram Bot Token was written directly in the source code.</p>
+    <p>While checking the JavaScript code I noticed that the Telegram Bot Token was written directly in the source code.</p>
     <img src="Capture9.JPG" alt="Hardcoded Telegram Bot Token" />
     <p>Because JavaScript is downloaded to every visitor's browser, anyone can reveal this token by using:</p>
     <ul>
@@ -359,22 +356,22 @@
       <li>View Page Source</li>
       <li>Browser Developer Tools</li>
     </ul>
-    <p>Exposing a bot token may allow unauthorized individuals to interact with the Telegram bot depending on its configuration.</p>
+    <p>Exposing a bot token may allow unauthorized individual to interact with the Telegram bot depending on its config</p>
 
     <h3>Hardcoded Chat IDs</h3>
     <p>I also found Telegram Chat IDs inside the source code that are used for sending submitted messages.</p>
     <img src="Capture9.JPG" alt="Exposed Telegram Chat IDs" />
-    <p>This reveals where submitted messages are being delivered and exposes internal implementation details that normally should remain server-side.</p>
+    <p>This reveals where submitted messages are being delivered and exposes internal implementation details that normally should remain server side.</p>
 
     <h3>Direct Telegram API Calls</h3>
-    <p>Instead of sending the data to its own backend server first, the website sends requests directly to:</p>
+    <p>Instead of sending the data to its own backend server first the website sends requests directly to:</p>
     <p><code>https://api.telegram.org/bot&lt;TOKEN&gt;/sendMessage</code></p>
     <p>This means every visitor can observe exactly how messages are transmitted.</p>
     <img src="Capture7.JPG" alt="Direct API Call 1" />
     <img src="Capture8.JPG" alt="Direct API Call 2" />
 
     <h3>Client-side Data Collection</h3>
-    <p>While reading the code, I noticed that the website collects several pieces of information from visitors, including:</p>
+    <p>While reading the code I noticed that the website collects several pieces of information from visitors which is suspicous including:</p>
     <ul>
       <li>Screen resolution</li>
       <li>Device memory</li>
@@ -396,7 +393,7 @@
 
     <div class="finding-card high">
       <h3>A. Exposure of Secrets</h3>
-      <p>The Telegram Bot Token is embedded directly into client-side JavaScript.</p>
+      <p>The Telegram Bot Token is embedded directly into client side JavaScript.</p>
       <div class="risk-section">
         <span class="risk-title">Risk:</span> Anyone inspecting the webpage can obtain the token and potentially misuse the bot.<br>
         <span class="rec-title">Recommendation:</span> Bot tokens should always remain on a secure backend server.
@@ -405,7 +402,7 @@
 
     <div class="finding-card medium">
       <h3>B. Client-side Logic Exposure</h3>
-      <p>Since the entire application logic executes inside the browser, users can easily understand how messages are sent, what information is collected, and which Telegram channels receive data.</p>
+      <p>Since the entire logic executes inside the browser users can easily understand how messages are sent what information is collected, and which Telegram channels receive data.</p>
       <div class="risk-section">
         <span class="rec-title">Key Takeaway:</span> Sensitive operations should not occur entirely on the client side.
       </div>
@@ -413,7 +410,7 @@
 
     <div class="finding-card medium">
       <h3>C. Personal Data Collection</h3>
-      <p>Although the website is presented as anonymous, the code collects multiple pieces of device and browser information before forwarding data to Telegram (e.g., fingerprint info, persistent IDs, IP/GPS location, hardware specs, ISP data).</p>
+      <p>Although the website is presented as anonymous the code collects multiple pieces of device and browser information before forwarding data to Telegram (fingerprint info, persistent IDs, IP/GPS location, hardware specs, ISP data).</p>
       <div class="risk-section">
         <span class="risk-title">Risk:</span> Collecting this information reduces the level of anonymity users expect.<br>
         <span class="rec-title">Recommendation:</span> Developers should clearly disclose what information is collected and ensure compliance with applicable privacy laws and institutional policies.
@@ -432,15 +429,15 @@
 
   <section>
     <h2>3. Privacy Considerations</h2>
-    <p>Anonymous submission platforms often encourage users to believe their identity cannot be linked to submissions. However, this application collects additional metadata that could potentially be associated with users (device characteristics, network info, fingerprinting, persistent IDs, location data).</p>
+    <p>Anonymous submission platforms often encourage users to believe their identity cannot be linked to submissions. However this application collects additional metadata that could potentially be associated with users (device characteristics, network info, fingerprinting, persistent IDs, location data).</p>
     <p>Developers should ensure users are informed about any collected data and follow applicable privacy requirements.</p>
   </section>
 
   <section>
     <h2>4. Recommendations</h2>
     <ol>
-      <li>Move Telegram API requests to a backend server.</li>
-      <li>Never expose Telegram Bot Tokens in client-side JavaScript.</li>
+      <li>Move Telegram API requests to a backend</li>
+      <li>Never expose Telegram Bot Tokens in client side JavaScript.</li>
       <li>Store secrets using server-side environment variables.</li>
       <li>Minimize collection of user metadata; only collect what is strictly necessary.</li>
       <li>Publish a transparent privacy notice explaining what information is collected and why.</li>
@@ -450,8 +447,8 @@
 
   <section>
     <h2>5. Conclusion</h2>
-    <p>From this project, I learned that storing secrets in frontend code is not a good practice because anyone can inspect the website and view them. I also noticed that the website collects a lot of information from users before sending messages to Telegram, even though it presents itself as anonymous.</p>
-    <p>Overall, this was a good learning experience for me. It helped me understand common security mistakes in web applications and showed me why developers should protect sensitive information and be transparent about the data they collect.</p>
+    <p>From this project I learned that storing secrets in frontend code is not a good practice because anyone can inspect the website and view them. I also noticed that the website collects a lot of information from users before sending messages to Telegram even though it presents itself as anonymous.</p>
+    <p>Overall this was a good learning experience for me. It helped me understand common security mistakes in web applications and showed me why developers should protect sensitive information and be transparent about the data they collect.</p>
   </section>
 
   <footer>
