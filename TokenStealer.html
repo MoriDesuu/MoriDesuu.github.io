@@ -7,6 +7,10 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     body, h1, h2, h3, p, ul, li, a, code {
       margin: 0;
       padding: 0;
@@ -48,15 +52,31 @@
       margin-bottom: 10px;
     }
 
+    section h3 {
+      font-size: 1.3rem;
+      color: #f1f5f9;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
     section p, section ul {
       font-size: 1.1rem;
       line-height: 1.8;
       color: #ddd;
     }
 
+    section p {
+      margin-bottom: 15px;
+    }
+
     section ul {
       margin-left: 20px;
+      margin-bottom: 15px;
       list-style-type: disc;
+    }
+
+    section ul li {
+      margin-bottom: 8px;
     }
 
     section img {
@@ -69,7 +89,7 @@
     }
 
     section img:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
       box-shadow: 0 4px 12px rgba(255, 105, 180, 0.6);
     }
 
@@ -85,6 +105,7 @@
     footer {
       text-align: center;
       margin-top: 50px;
+      padding: 20px 0;
       font-size: 1rem;
       color: #888;
     }
@@ -94,6 +115,7 @@
       background-color: #333;
       padding: 2px 6px;
       border-radius: 4px;
+      font-family: monospace;
     }
 
     /* Preloader */
@@ -133,24 +155,26 @@
     }
 
     .top-back a {
-      background-color: Black;
+      background-color: #000;
       color: #ff1493;
       padding: 8px 16px;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
+      border: 1px solid #333;
     }
 
+    .top-back a:hover {
+      background-color: #1e1e1e;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Preloader -->
   <div id="preloader">
     <div class="loader"></div>
   </div>
 
-  <!-- Floating Back to Home Button -->
   <div class="top-back">
     <a href="index.html">Home</a>
   </div>
@@ -161,7 +185,7 @@
 
   <section>
     <h2>Overview and File Information</h2>
-    <p>I found this file from a YouTube video where it was pretending to be a cracked program. After looking into it, I realized it was actually a password and token stealer that mainly targets Discord. When run, it collects sensitive info from the victim’s computer, sends it to a webhook server controlled by the attacker, and then tries to delete any traces of itself. This just shows how risky it is to download and run random files from the internet.</p>
+    <p>I found this file from a YouTube video where it was pretending to be a cracked program. After looking into it, I realized it was actually a password and token stealer that mainly targets Discord. When run, it collects sensitive info from the victim’s computer, sends it to a webhook server controlled by the attacker, and then tries to delete any traces of itself. This demonstrates the risk of downloading and running unknown executables from untrusted sources.</p>
 
     <h3>File Details</h3>
     <ul>
@@ -172,63 +196,69 @@
 
   <section>
     <h2>1. Static Analysis</h2>
-    <p>For static analysis, I didn’t run the file yet. I used <strong>DnSpy</strong> to inspect the malware's code since it was a .NET executable.</p>
+    <p>For static analysis, the file was inspected without execution using <strong>DnSpy</strong> to review the source code of the .NET executable.</p>
 
     <h3>Reviewing Code with DnSpy</h3>
-    <p>By opening the file in <strong>DnSpy</strong>, I could read and understand what the malware was coded to do. Some findings:</p>
+    <p>Opening the executable in <strong>DnSpy</strong> revealed the underlying structure and exfiltration logic:</p>
     <ul>
-      <li>There were Discord webhook URLs hardcoded inside.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Token Grab" />
-      <li>Functions that grabbed browser data (like Chrome and Firefox tokens).</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Token Grab" />
-      <li>Code that saved stolen data to a local file path like <code>C:\temp\[USER]_Passwords.txt</code>.</li>
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
-      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Save" />
-      <li>Used <code>HttpClient</code> or similar to send stolen info to the webhook.</li>
+      <li>
+        Hardcoded Discord webhook endpoints inside the source code:
+        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Hardcoded Webhook Analysis" />
+      </li>
+      <li>
+        Functions designed to locate browser data (such as Chrome and Firefox session data):
+        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Browser Data Extraction Logic" />
+      </li>
+      <li>
+        Routines for writing staged data to temporary directories such as <code>C:\temp\[USER]_Passwords.txt</code>:
+        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Local File Staging 1" />
+        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Local File Staging 2" />
+      </li>
+      <li>Utilization of <code>HttpClient</code> routines to issue HTTP POST requests containing exfiltrated data.</li>
     </ul>
 
     <h3>VirusTotal Scan</h3>
-    <p>I also uploaded the file to <a href="https://www.virustotal.com/" target="_blank">VirusTotal and Hybrid Analysis</a>, and it was flagged by many AVs. Most said it was a stealer or a trojan.</p>
+    <p>Uploading the sample hash to multi-engine scanning services like <a href="https://www.virustotal.com/" target="_blank" rel="noopener noreferrer">VirusTotal</a> and Hybrid Analysis confirmed detection coverage, with most vendors categorizing the sample under stealer or trojan classifications.</p>
   </section>
 
   <section>
     <h2>2. Dynamic Analysis</h2>
-    <p>After reviewing the code statically, I used a sandbox to see how it behaves when executed.</p>
+    <p>Dynamic analysis was conducted in an isolated sandbox environment to observe runtime behavior.</p>
 
     <h3>A. Runtime Behavior</h3>
-    <p>After running it in a sandbox, it did the following:</p>
+    <p>Execution inside the sandbox confirmed the following actions:</p>
     <ul>
-      <li>Created a file like <strong>C:\temp\[USER]_Passwords.txt</strong> to store creds.</li>
-      <li>Searched local storage files for Discord tokens.</li>
-      <li>Sent the data to the webhook.</li>
+      <li>Staged credentials locally under <code>C:\temp\[USER]_Passwords.txt</code>.</li>
+      <li>Scanned local application storage for Discord tokens.</li>
+      <li>Transmitted collected data out of the environment via the webhook endpoint.</li>
     </ul>
 
     <h3>B. Network Behavior</h3>
-    <p>I used <strong>App.Any.Run</strong> to monitor network activity. It clearly showed:</p>
+    <p>Monitoring network traffic via <strong>ANY.RUN</strong> demonstrated:</p>
     <ul>
-      <li>The malware established HTTP connection to a Discord webhook.</li>
-      <li>Sent token and password data in plain text.</li>
+      <li>Outbound HTTP requests directed to Discord's API webhook infrastructure.</li>
+      <li>Transmission of staged tokens and credentials within the request payload.</li>
     </ul>
 
     <h3>C. Cleanup Behavior</h3>
-    <p>It also had some kind of cleanup process:</p>
+    <p>The executable performed self-cleanup mechanisms post-exfiltration:</p>
     <ul>
-      <li>Deleted the text file with the stolen data after uploading it.</li>
-      <li>Attempted to remove itself from the system afterward.</li>
+      <li>Removal of the staged local text file after completion of the upload.</li>
+      <li>Self-deletion routines executed to minimize local indicators of compromise.</li>
     </ul>
 
     <h3>D. Tools Used</h3>
     <ul>
-      <li><strong>DnSpy</strong> – for viewing and analyzing the C# code inside the .NET file.</li>
-      <li><strong>VirusTotal / Hybrid Analysis</strong> – for scanning and checking known detections.</li>
-      <li><strong>App.Any.Run</strong> – to run the malware safely and observe network behavior.</li>
+      <li><strong>DnSpy</strong> – Static analysis and decompilation of .NET binaries.</li>
+      <li><strong>VirusTotal / Hybrid Analysis</strong> – Multi-engine antivirus signature scanning.</li>
+      <li><strong>ANY.RUN</strong> – Interactive malware analysis sandbox for behavioral and network tracking.</li>
     </ul>
   </section>
 
   <section>
     <h2>3. Conclusion</h2>
-    <p>Based on both static and dynamic analysis, the file is a basic but effective password and token stealer.</p>
-    <p>The code clearly shows stealing logic using Discord webhooks, and the sandbox confirmed it behaves the same. It saves stolen data locally, exfiltrates it, then deletes itself. Simple, but dangerous if someone executes it unknowingly.</p>
+    <p>Static and dynamic analysis confirm that the binary operates as an information stealer targeting Discord tokens and browser data.</p>
+    <p>Decompiled code analysis directly correlates with the observed sandbox execution: the program collects local credentials, exfiltrates them via outbound webhooks, and executes cleanup scripts upon completion.</p>
   </section>
 
   <footer>
@@ -240,9 +270,9 @@
       const loader = document.getElementById("preloader");
       const body = document.body;
       setTimeout(() => {
-        loader.style.display = "none";
+        if (loader) loader.style.display = "none";
         body.style.visibility = "visible";
-        body.style.opacity = 1;
+        body.style.opacity = "1";
       }, 1000);
     });
   </script>
