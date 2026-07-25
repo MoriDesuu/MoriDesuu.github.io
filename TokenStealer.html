@@ -1,281 +1,502 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Analysis of Password & Token Stealer</title>
 
+
+
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
 
     body, h1, h2, h3, p, ul, li, a, code {
+
       margin: 0;
+
       padding: 0;
+
       font-family: 'Roboto', sans-serif;
+
     }
+
+
 
     body {
+
       background-color: #121212;
+
       color: #e0e0e0;
+
       line-height: 1.6;
+
       padding: 20px;
+
       opacity: 0;
+
       visibility: hidden;
+
       transition: opacity 0.5s ease;
+
     }
+
+
 
     header {
+
       background-color: #ff1493;
+
       color: white;
+
       padding: 20px;
+
       text-align: center;
+
       border-radius: 8px;
+
     }
+
+
 
     header h1 {
+
       font-size: 2.5rem;
+
     }
+
+
 
     section {
+
       margin: 40px 0;
+
       padding: 20px;
+
       background-color: #1e1e1e;
+
       border-radius: 8px;
+
     }
+
+
 
     section h2 {
+
       font-size: 2rem;
+
       color: #ff69b4;
+
       margin-bottom: 10px;
+
     }
 
-    section h3 {
-      font-size: 1.3rem;
-      color: #f1f5f9;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
+
 
     section p, section ul {
+
       font-size: 1.1rem;
+
       line-height: 1.8;
+
       color: #ddd;
+
     }
 
-    section p {
-      margin-bottom: 15px;
-    }
+
 
     section ul {
+
       margin-left: 20px;
-      margin-bottom: 15px;
+
       list-style-type: disc;
+
     }
 
-    section ul li {
-      margin-bottom: 8px;
-    }
+
 
     section img {
+
       width: 100%;
+
       max-width: 600px;
+
       display: block;
+
       margin: 20px 0;
+
       border-radius: 8px;
+
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+
     }
+
+
 
     section img:hover {
-      transform: scale(1.03);
+
+      transform: scale(1.05);
+
       box-shadow: 0 4px 12px rgba(255, 105, 180, 0.6);
+
     }
+
+
 
     a {
+
       color: #ff69b4;
+
       text-decoration: none;
+
     }
+
+
 
     a:hover {
+
       text-decoration: underline;
+
     }
+
+
 
     footer {
+
       text-align: center;
+
       margin-top: 50px;
-      padding: 20px 0;
+
       font-size: 1rem;
+
       color: #888;
+
     }
+
+
 
     code {
+
       color: #ff69b4;
+
       background-color: #333;
+
       padding: 2px 6px;
+
       border-radius: 4px;
-      font-family: monospace;
+
     }
+
+
 
     /* Preloader */
+
     #preloader {
+
       position: fixed;
+
       top: 0;
+
       left: 0;
+
       width: 100%;
+
       height: 100%;
+
       background-color: #121212;
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
+
       z-index: 9999;
+
     }
+
+
 
     .loader {
+
       border: 8px solid #2a2a2a;
+
       border-top: 8px solid #ff69b4;
+
       border-radius: 50%;
+
       width: 60px;
+
       height: 60px;
+
       animation: spin 1s linear infinite;
+
     }
+
+
 
     @keyframes spin {
+
       0% { transform: rotate(0deg); }
+
       100% { transform: rotate(360deg); }
+
     }
+
+
 
     /* Floating Back to Home Button */
+
     .top-back {
+
       position: fixed;
+
       top: 20px;
+
       left: 20px;
+
       z-index: 100;
+
     }
+
+
 
     .top-back a {
-      background-color: #000;
+
+      background-color: Black;
+
       color: #ff1493;
+
       padding: 8px 16px;
+
       border-radius: 6px;
+
       text-decoration: none;
+
       font-weight: bold;
-      border: 1px solid #333;
+
     }
 
-    .top-back a:hover {
-      background-color: #1e1e1e;
-    }
+
+
   </style>
+
 </head>
+
 <body>
 
+
+
+  <!-- Preloader -->
+
   <div id="preloader">
+
     <div class="loader"></div>
+
   </div>
+
+
+
+  <!-- Floating Back to Home Button -->
 
   <div class="top-back">
+
     <a href="index.html">Home</a>
+
   </div>
 
+
+
   <header>
+
     <h1>Analysis of Discord Token Stealer</h1>
+
   </header>
 
+
+
   <section>
+
     <h2>Overview and File Information</h2>
-    <p>I found this file from a YouTube video where it was pretending to be a cracked program. After looking into it, I realized it was actually a password and token stealer that mainly targets Discord. When run, it collects sensitive info from the victim’s computer, sends it to a webhook server controlled by the attacker, and then tries to delete any traces of itself. This demonstrates the risk of downloading and running unknown executables from untrusted sources.</p>
+
+    <p>I found this file from a YouTube video where it was pretending to be a cracked program. After looking into it, I realized it was actually a password and token stealer that mainly targets Discord. When run, it collects sensitive info from the victim’s computer, sends it to a webhook server controlled by the attacker, and then tries to delete any traces of itself. This just shows how risky it is to download and run random files from the internet.</p>
+
+
 
     <h3>File Details</h3>
+
     <ul>
+
       <li><strong>File Name:</strong> <code>StealerBin.exe</code></li>
+
       <li><strong>File Size:</strong> 8.2 MB</li>
+
     </ul>
+
   </section>
 
+
+
   <section>
+
     <h2>1. Static Analysis</h2>
-    <p>For static analysis, the file was inspected without execution using <strong>DnSpy</strong> to review the source code of the .NET executable.</p>
+
+    <p>For static analysis, I didn’t run the file yet. I used <strong>DnSpy</strong> to inspect the malware's code since it was a .NET executable.</p>
+
+
 
     <h3>Reviewing Code with DnSpy</h3>
-    <p>Opening the executable in <strong>DnSpy</strong> revealed the underlying structure and exfiltration logic:</p>
+
+    <p>By opening the file in <strong>DnSpy</strong>, I could read and understand what the malware was coded to do. Some findings:</p>
+
     <ul>
-      <li>
-        Hardcoded Discord webhook endpoints inside the source code:
-        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Hardcoded Webhook Analysis" />
-      </li>
-      <li>
-        Functions designed to locate browser data (such as Chrome and Firefox session data):
-        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Browser Data Extraction Logic" />
-      </li>
-      <li>
-        Routines for writing staged data to temporary directories such as <code>C:\temp\[USER]_Passwords.txt</code>:
-        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Local File Staging 1" />
-        <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Local File Staging 2" />
-      </li>
-      <li>Utilization of <code>HttpClient</code> routines to issue HTTP POST requests containing exfiltrated data.</li>
+
+      <li>There were Discord webhook URLs hardcoded inside.</li>
+
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image4.png" alt="Token Grab" />
+
+      <li>Functions that grabbed browser data (like Chrome and Firefox tokens).</li>
+
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image2.png" alt="Token Grab" />
+
+      <li>Code that saved stolen data to a local file path like <code>C:\temp\[USER]_Passwords.txt</code>.</li>
+
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/main/3.png" alt="Save" />
+
+      <img src="https://raw.githubusercontent.com/MoriDesuu/MoriDesuu.github.io/refs/heads/main/image.png" alt="Save" />
+
+      <li>Used <code>HttpClient</code> or similar to send stolen info to the webhook.</li>
+
     </ul>
+
+
 
     <h3>VirusTotal Scan</h3>
-    <p>Uploading the sample hash to multi-engine scanning services like <a href="https://www.virustotal.com/" target="_blank" rel="noopener noreferrer">VirusTotal</a> and Hybrid Analysis confirmed detection coverage, with most vendors categorizing the sample under stealer or trojan classifications.</p>
+
+    <p>I also uploaded the file to <a href="https://www.virustotal.com/" target="_blank">VirusTotal and Hybrid Analysis</a>, and it was flagged by many AVs. Most said it was a stealer or a trojan.</p>
+
   </section>
 
+
+
   <section>
+
     <h2>2. Dynamic Analysis</h2>
-    <p>Dynamic analysis was conducted in an isolated sandbox environment to observe runtime behavior.</p>
+
+    <p>After reviewing the code statically, I used a sandbox to see how it behaves when executed.</p>
+
+
 
     <h3>A. Runtime Behavior</h3>
-    <p>Execution inside the sandbox confirmed the following actions:</p>
+
+    <p>After running it in a sandbox, it did the following:</p>
+
     <ul>
-      <li>Staged credentials locally under <code>C:\temp\[USER]_Passwords.txt</code>.</li>
-      <li>Scanned local application storage for Discord tokens.</li>
-      <li>Transmitted collected data out of the environment via the webhook endpoint.</li>
+
+      <li>Created a file like <strong>C:\temp\[USER]_Passwords.txt</strong> to store creds.</li>
+
+      <li>Searched local storage files for Discord tokens.</li>
+
+      <li>Sent the data to the webhook.</li>
+
     </ul>
+
+
 
     <h3>B. Network Behavior</h3>
-    <p>Monitoring network traffic via <strong>ANY.RUN</strong> demonstrated:</p>
+
+    <p>I used <strong>App.Any.Run</strong> to monitor network activity. It clearly showed:</p>
+
     <ul>
-      <li>Outbound HTTP requests directed to Discord's API webhook infrastructure.</li>
-      <li>Transmission of staged tokens and credentials within the request payload.</li>
+
+      <li>The malware established HTTP connection to a Discord webhook.</li>
+
+      <li>Sent token and password data in plain text.</li>
+
     </ul>
+
+
 
     <h3>C. Cleanup Behavior</h3>
-    <p>The executable performed self-cleanup mechanisms post-exfiltration:</p>
+
+    <p>It also had some kind of cleanup process:</p>
+
     <ul>
-      <li>Removal of the staged local text file after completion of the upload.</li>
-      <li>Self-deletion routines executed to minimize local indicators of compromise.</li>
+
+      <li>Deleted the text file with the stolen data after uploading it.</li>
+
+      <li>Attempted to remove itself from the system afterward.</li>
+
     </ul>
+
+
 
     <h3>D. Tools Used</h3>
+
     <ul>
-      <li><strong>DnSpy</strong> – Static analysis and decompilation of .NET binaries.</li>
-      <li><strong>VirusTotal / Hybrid Analysis</strong> – Multi-engine antivirus signature scanning.</li>
-      <li><strong>ANY.RUN</strong> – Interactive malware analysis sandbox for behavioral and network tracking.</li>
+
+      <li><strong>DnSpy</strong> – for viewing and analyzing the C# code inside the .NET file.</li>
+
+      <li><strong>VirusTotal / Hybrid Analysis</strong> – for scanning and checking known detections.</li>
+
+      <li><strong>App.Any.Run</strong> – to run the malware safely and observe network behavior.</li>
+
     </ul>
+
   </section>
+
+
 
   <section>
+
     <h2>3. Conclusion</h2>
-    <p>Static and dynamic analysis confirm that the binary operates as an information stealer targeting Discord tokens and browser data.</p>
-    <p>Decompiled code analysis directly correlates with the observed sandbox execution: the program collects local credentials, exfiltrates them via outbound webhooks, and executes cleanup scripts upon completion.</p>
+
+    <p>Based on both static and dynamic analysis, the file is a basic but effective password and token stealer.</p>
+
+    <p>The code clearly shows stealing logic using Discord webhooks, and the sandbox confirmed it behaves the same. It saves stolen data locally, exfiltrates it, then deletes itself. Simple, but dangerous if someone executes it unknowingly.</p>
+
   </section>
 
+
+
   <footer>
+
     <p>&copy; 2026 Aqil Najmi. All Rights Reserved.</p>
+
   </footer>
 
+
+
   <script>
+
     window.addEventListener("load", function () {
+
       const loader = document.getElementById("preloader");
+
       const body = document.body;
+
       setTimeout(() => {
-        if (loader) loader.style.display = "none";
+
+        loader.style.display = "none";
+
         body.style.visibility = "visible";
-        body.style.opacity = "1";
+
+        body.style.opacity = 1;
+
       }, 1000);
+
     });
+
   </script>
 
+
+
 </body>
-</html>
+
+</html> 
+
