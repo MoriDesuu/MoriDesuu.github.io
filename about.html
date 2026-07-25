@@ -19,9 +19,17 @@
       background-color: #121212;
       color: #f1f1f1;
       line-height: 1.6;
-      padding: 20px;
+      padding: 15px;
       overflow-x: hidden;
-      cursor: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body {
+        cursor: none;
+      }
+      #cursor-dot {
+        display: block;
+      }
     }
 
     a {
@@ -58,15 +66,16 @@
 
     header {
       background-color: #ff1493;
-      padding: 30px 20px;
+      padding: 25px 15px;
       text-align: center;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     header h1 {
-      font-size: 2.8rem;
+      font-size: 1.8rem;
       margin-bottom: 10px;
+      word-wrap: break-word;
     }
 
     nav ul {
@@ -77,12 +86,12 @@
 
     nav ul li {
       display: inline-block;
-      margin: 0 15px;
+      margin: 0 10px;
     }
 
     nav ul li a {
       color: white;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 500;
       transition: color 0.3s ease;
     }
@@ -93,8 +102,8 @@
 
     section {
       max-width: 900px;
-      margin: 50px auto;
-      padding: 30px;
+      margin: 30px auto;
+      padding: 20px 15px;
       background-color: #1e1e1e;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(255, 20, 147, 0.1);
@@ -110,12 +119,12 @@
     }
 
     section h2 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #ff69b4;
-      margin-top: 30px;
-      margin-bottom: 25px;
+      margin-top: 25px;
+      margin-bottom: 20px;
       border-bottom: 2px solid #ff69b4;
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     section h2:first-of-type {
@@ -123,8 +132,9 @@
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       margin-bottom: 15px;
+      line-height: 1.7;
     }
 
     ul {
@@ -133,7 +143,7 @@
     }
 
     li {
-      font-size: 1.05rem;
+      font-size: 1rem;
       margin-bottom: 8px;
     }
 
@@ -143,7 +153,7 @@
 
     .back-button-container {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     .back-button {
@@ -153,7 +163,7 @@
       padding: 12px 24px;
       border-radius: 8px;
       font-weight: 500;
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: background-color 0.3s ease, transform 0.3s ease;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     }
@@ -165,12 +175,14 @@
 
     footer {
       text-align: center;
-      margin-top: 80px;
-      font-size: 0.95rem;
+      margin-top: 50px;
+      font-size: 0.85rem;
       color: #888;
     }
 
+    /* Custom Cursor Elements */
     #cursor-dot {
+      display: none;
       position: fixed;
       width: 12px;
       height: 12px;
@@ -195,6 +207,7 @@
       opacity: 0.6;
       transform: translate(-50%, -50%);
       animation: trail-animation 0.5s ease-out forwards;
+      z-index: 9999;
     }
 
     @keyframes trail-animation {
@@ -205,6 +218,57 @@
       100% {
         transform: translate(-50%, -50%) scale(0);
         opacity: 0;
+      }
+    }
+
+    /* Desktop and Tablet Enhancements */
+    @media (min-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      header {
+        padding: 30px 20px;
+      }
+
+      header h1 {
+        font-size: 2.8rem;
+      }
+
+      nav ul li {
+        margin: 0 15px;
+      }
+
+      nav ul li a {
+        font-size: 1.1rem;
+      }
+
+      section {
+        margin: 50px auto;
+        padding: 30px;
+      }
+
+      section h2 {
+        font-size: 2rem;
+        margin-top: 30px;
+        margin-bottom: 25px;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      li {
+        font-size: 1.05rem;
+      }
+
+      .back-button {
+        font-size: 1.1rem;
+      }
+
+      footer {
+        margin-top: 80px;
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -230,15 +294,15 @@
   <section id="about-content">
     <h2>Hello! I'm Aqil Najmi</h2>
 
-<p>Im currently pursuing a <strong>Diploma in Information Technology</strong> and have a strong interest in information security especially malware analysis threat detection and security anaylst Ive been interested in computers from a young age and that curiosity eventually led me to learn more about cybersecurity.</p>
+    <p>I'm currently pursuing a <strong>Diploma in Information Technology</strong> and have a strong interest in information security, especially malware analysis, threat detection, and security analysis. I've been interested in computers from a young age, and that curiosity eventually led me to learn more about cybersecurity.</p>
 
-<p>Ive completed the <strong>Google Cybersecurity Professional Certificate</strong> and the <strong>Microsoft Cybersecurity Analyst Professional Certificate</strong> which gave me a foundation in networking security operations incident response and threat analysis. Outside of my studies I enjoy building personal projects, analyzing malware samples and learning new security concepts through hands-on practice.</p>
+    <p>I've completed the <strong>Google Cybersecurity Professional Certificate</strong> and the <strong>Microsoft Cybersecurity Analyst Professional Certificate</strong>, which gave me a solid foundation in networking, security operations, incident response, and threat analysis. Outside of my studies, I enjoy building personal projects, analyzing malware samples, and learning new security concepts through hands-on practice.</p>
 
-<p>This portfolios contains a collection of my security research and technical review Some of the projects were created earlier in my learning journey while others are more recent and reflect my current knowledge and skills. I keep older projects here because they show my progress over time and Ill continue adding new projects as I learn more.</p>
+    <p>This portfolio contains a collection of my security research and technical reviews. Some of the projects were created earlier in my learning journey while others are more recent and reflect my current knowledge and skills. I keep older projects here because they show my progress over time, and I'll continue adding new projects as I learn more.</p>
 
-<p>My goal is to become a <strong>SOC Analyst</strong> and InshaAllah get the <strong>CompTIA Security+</strong> and <strong>CompTIA Network+</strong> certifications in the near future. I also want to continue improving my skills in malware analysis threat research and incident response. Im always looking for opportunities to learn experiment and gain handson experience through personal projects.</p>
+    <p>My goal is to become a <strong>SOC Analyst</strong> and get the <strong>CompTIA Security+</strong> and <strong>CompTIA Network+</strong> certifications in the near future. I also want to continue improving my skills in malware analysis, threat research, and incident response. I'm always looking for opportunities to learn, experiment, and gain hands-on experience through personal projects.</p>
     
-    <h2>Skills & Areas of Interest</h2>
+    <h2>Skills &amp; Areas of Interest</h2>
     <ul>
       <li>Malware Analysis</li>
       <li>Threat Detection</li>
@@ -246,24 +310,24 @@
       <li>Network Security</li>
       <li>Reverse Engineering</li>
       <li>Windows Internals</li>
-      <li>YARA Rule</li>
+      <li>YARA Rules</li>
     </ul>
 
-    <h2><h2>Tools & Technologies I've Used</h2></h2>
-<ul>
-  <li>Arch Linux (GNOME)</li>
-  <li>VirusTotal & VT Graph</li>
-  <li>Hybrid Analysis</li>
-  <li>MalwareBazaar</li>
-  <li>YARA</li>
-  <li>dnSpy</li>
-  <li>Wireshark</li>
-  <li>Nmap</li>
-  <li>Bettercap</li>
-  <li>Git & GitHub</li>
-  <li>JetBrains IDEs</li>
-  <li>NeikiDev</li>
-</ul>
+    <h2>Tools &amp; Technologies I've Used</h2>
+    <ul>
+      <li>Arch Linux (GNOME)</li>
+      <li>VirusTotal &amp; VT Graph</li>
+      <li>Hybrid Analysis</li>
+      <li>MalwareBazaar</li>
+      <li>YARA</li>
+      <li>dnSpy</li>
+      <li>Wireshark</li>
+      <li>Nmap</li>
+      <li>Bettercap</li>
+      <li>Git &amp; GitHub</li>
+      <li>JetBrains IDEs</li>
+      <li>NeikiDev</li>
+    </ul>
     
     <div class="back-button-container">
       <a href="index.html" class="back-button">Back to Home</a>
@@ -288,28 +352,30 @@
       }, 200);
     });
 
-    const cursor = document.getElementById("cursor-dot");
-    let lastTrailTime = 0;
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      const cursor = document.getElementById("cursor-dot");
+      let lastTrailTime = 0;
 
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.top = `${e.clientY}px`;
-      cursor.style.left = `${e.clientX}px`;
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.top = `${e.clientY}px`;
+        cursor.style.left = `${e.clientX}px`;
 
-      const now = Date.now();
-      if (now - lastTrailTime > 15) {
-        let trail = document.createElement("div");
-        trail.classList.add("cursor-trail");
-        trail.style.top = `${e.clientY}px`;
-        trail.style.left = `${e.clientX}px`;
-        document.body.appendChild(trail);
+        const now = Date.now();
+        if (now - lastTrailTime > 15) {
+          let trail = document.createElement("div");
+          trail.classList.add("cursor-trail");
+          trail.style.top = `${e.clientY}px`;
+          trail.style.left = `${e.clientX}px`;
+          document.body.appendChild(trail);
 
-        setTimeout(() => {
-          trail.remove();
-        }, 500);
-        
-        lastTrailTime = now;
-      }
-    });
+          setTimeout(() => {
+            trail.remove();
+          }, 500);
+          
+          lastTrailTime = now;
+        }
+      });
+    }
   </script>
 </body>
 </html>
