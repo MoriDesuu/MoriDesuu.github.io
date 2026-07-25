@@ -21,53 +21,74 @@
       background-color: #121212;
       color: #e0e0e0;
       line-height: 1.6;
-      padding: 20px;
+      padding: 15px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s ease;
     }
 
+    /* Navigation - Flow on Mobile */
+    .top-back {
+      margin-bottom: 15px;
+    }
+
+    .top-back a {
+      display: inline-block;
+      background-color: #000;
+      color: #ff1493;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #333;
+    }
+
+    .top-back a:hover {
+      background-color: #1e1e1e;
+    }
+
     header {
       background-color: #ff1493;
       color: white;
-      padding: 20px;
+      padding: 20px 15px;
       text-align: center;
       border-radius: 8px;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 1.6rem;
+      word-wrap: break-word;
     }
 
     header p {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       margin-top: 5px;
       opacity: 0.9;
     }
 
     section {
-      margin: 40px 0;
-      padding: 20px;
+      margin: 25px 0;
+      padding: 15px;
       background-color: #1e1e1e;
       border-radius: 8px;
     }
 
     section h2 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #ff69b4;
       margin-bottom: 10px;
     }
 
     section h3 {
-      font-size: 1.3rem;
+      font-size: 1.15rem;
       color: #f1f5f9;
       margin-top: 20px;
       margin-bottom: 10px;
     }
 
     section p, section ul, section ol {
-      font-size: 1.1rem;
-      line-height: 1.8;
+      font-size: 1rem;
+      line-height: 1.7;
       color: #ddd;
     }
 
@@ -87,14 +108,15 @@
     section img {
       width: 100%;
       max-width: 600px;
+      height: auto;
       display: block;
-      margin: 20px 0;
+      margin: 15px 0;
       border-radius: 8px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     section img:hover {
-      transform: scale(1.03);
+      transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(255, 105, 180, 0.6);
     }
 
@@ -113,14 +135,15 @@
       padding: 2px 6px;
       border-radius: 4px;
       font-family: monospace;
+      word-break: break-word;
     }
 
     .meta-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 15px;
       background-color: #262626;
-      padding: 20px;
+      padding: 15px;
       border-radius: 8px;
       margin-top: 15px;
       margin-bottom: 15px;
@@ -128,32 +151,39 @@
     }
 
     .meta-item {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .meta-item strong {
       display: block;
       color: #ff69b4;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
 
-    /* Table Styling */
+    /* Table Mobile Overflow Container */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
       background-color: #262626;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #333;
+      min-width: 320px;
     }
 
     th, td {
-      padding: 12px 15px;
+      padding: 10px 12px;
       text-align: left;
+      font-size: 0.95rem;
     }
 
     th {
@@ -171,7 +201,7 @@
       display: inline-block;
       padding: 3px 8px;
       border-radius: 12px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: bold;
       color: #fff;
     }
@@ -185,7 +215,7 @@
       border: 1px solid #333;
       border-left: 4px solid #ff69b4;
       border-radius: 6px;
-      padding: 20px;
+      padding: 15px;
       margin-bottom: 20px;
     }
 
@@ -199,6 +229,7 @@
 
     .risk-section {
       margin-top: 10px;
+      font-size: 0.95rem;
     }
 
     .risk-title {
@@ -213,9 +244,9 @@
 
     footer {
       text-align: center;
-      margin-top: 50px;
-      padding: 20px 0;
-      font-size: 1rem;
+      margin-top: 40px;
+      padding: 15px 0;
+      font-size: 0.85rem;
       color: #888;
     }
 
@@ -247,25 +278,76 @@
       100% { transform: rotate(360deg); }
     }
 
-    .top-back {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 100;
-    }
+    /* Tablet and Desktop Styles */
+    @media (min-width: 768px) {
+      body {
+        padding: 20px;
+      }
 
-    .top-back a {
-      background-color: #000;
-      color: #ff1493;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      border: 1px solid #333;
-    }
+      .top-back {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 100;
+        margin-bottom: 0;
+      }
 
-    .top-back a:hover {
-      background-color: #1e1e1e;
+      header {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.1rem;
+      }
+
+      section {
+        margin: 40px 0;
+        padding: 20px;
+      }
+
+      section h2 {
+        font-size: 2rem;
+      }
+
+      section h3 {
+        font-size: 1.3rem;
+      }
+
+      section p, section ul, section ol {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        padding: 20px;
+      }
+
+      .meta-item {
+        font-size: 0.95rem;
+      }
+
+      .meta-item strong {
+        font-size: 0.8rem;
+      }
+
+      th, td {
+        padding: 12px 15px;
+        font-size: 1rem;
+      }
+
+      .finding-card {
+        padding: 20px;
+      }
+
+      footer {
+        font-size: 1rem;
+        margin-top: 50px;
+      }
     }
   </style>
 </head>
@@ -286,7 +368,7 @@
 
   <section>
     <h2>Overview &amp; File Information</h2>
-    <p>This project is an anonymous student confession website. Users can send a confession and its  message is forwarded to Telegram. While looking through the website source code I noticed that some important information and the source can be seen by anyone using the browser. As someone who is still learning web security I found this interesting because it shows why developers should be careful about what they put in frontend code.</p>
+    <p>This project is an anonymous student confession website. Users can send a confession and its message is forwarded to Telegram. While looking through the website source code I noticed that some important information and the source can be seen by anyone using the browser. As someone who is still learning web security I found this interesting because it shows why developers should be careful about what they put in frontend code.</p>
     <p>Since JavaScript runs in the user browser anyone can open Developer Tools or View Source to see the code. During my review, I was able to see things like API requests and other implementation details. From what I have learned sensitive information should not be stored in client side JavaScript because users can easily inspect it.</p>
 
     <div class="meta-grid">
@@ -311,36 +393,38 @@
 
   <section>
     <h2>Severity Assessment</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Finding</th>
-          <th>Severity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Hardcoded Telegram Bot Token</td>
-          <td><span class="badge high">🔴 High</span></td>
-        </tr>
-        <tr>
-          <td>Client-side API Calls</td>
-          <td><span class="badge medium">🟠 Medium</span></td>
-        </tr>
-        <tr>
-          <td>Device Fingerprinting</td>
-          <td><span class="badge medium">🟠 Medium</span></td>
-        </tr>
-        <tr>
-          <td>Excessive Personal Data Collection</td>
-          <td><span class="badge medium">🟠 Medium</span></td>
-        </tr>
-        <tr>
-          <td>Lack of Privacy Transparency</td>
-          <td><span class="badge low">🟡 Low</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Finding</th>
+            <th>Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hardcoded Telegram Bot Token</td>
+            <td><span class="badge high">🔴 High</span></td>
+          </tr>
+          <tr>
+            <td>Client-side API Calls</td>
+            <td><span class="badge medium">🟠 Medium</span></td>
+          </tr>
+          <tr>
+            <td>Device Fingerprinting</td>
+            <td><span class="badge medium">🟠 Medium</span></td>
+          </tr>
+          <tr>
+            <td>Excessive Personal Data Collection</td>
+            <td><span class="badge medium">🟠 Medium</span></td>
+          </tr>
+          <tr>
+            <td>Lack of Privacy Transparency</td>
+            <td><span class="badge low">🟡 Low</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section>
