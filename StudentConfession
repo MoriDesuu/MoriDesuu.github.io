@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Side Security Review - Anonymous Student Confession Portal</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8;
+            --high-sev: #ef4444;
+            --med-sev: #f97316;
+            --low-sev: #eab308;
+            --code-bg: #090d16;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            color: #f1f5f9;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .meta-item {
+            font-size: 0.95rem;
+        }
+
+        .meta-item strong {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            color: #38bdf8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+
+        .screenshot-placeholder {
+            background-color: var(--code-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .finding-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .finding-card.high { border-left-color: var(--high-sev); }
+        .finding-card.medium { border-left-color: var(--med-sev); }
+        .finding-card.low { border-left-color: var(--low-sev); }
+
+        .finding-card h3 {
+            margin-top: 0;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0f172a;
+            color: var(--accent-color);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        tr:not(:last-child) td {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .badge.high { background-color: var(--high-sev); }
+        .badge.medium { background-color: var(--med-sev); }
+        .badge.low { background-color: var(--low-sev); color: #000; }
+
+        .risk-section {
+            margin-top: 10px;
+        }
+
+        .risk-title {
+            color: #f87171;
+            font-weight: bold;
+        }
+
+        .rec-title {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Security Assessment Report</h1>
+        <p>Client-side Security Review: Anonymous Student Confession Portal</p>
+    </header>
+
+    <section>
+        <h2>Overview & File Information</h2>
+        <p>This website is an anonymous student confession portal where users can submit messages that are forwarded directly to Telegram. While the website advertises anonymity, inspection of the client-side source code reveals that sensitive implementation details and user data collection mechanisms are exposed.</p>
+        <p>Because all JavaScript executes in the user's browser, anyone can inspect the source code using Developer Tools and view hardcoded credentials, API endpoints, and data collection logic. This demonstrates why secrets should never be embedded in client-side applications.</p>
+
+        <div class="meta-grid">
+            <div class="meta-item">
+                <strong>Application Type</strong>
+                Anonymous Student Confession Portal
+            </div>
+            <div class="meta-item">
+                <strong>Frontend</strong>
+                HTML, CSS, JavaScript
+            </div>
+            <div class="meta-item">
+                <strong>Communication Platform</strong>
+                Telegram Bot API
+            </div>
+            <div class="meta-item">
+                <strong>Analysis Type</strong>
+                Client-side Security Review
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Severity Assessment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Finding</th>
+                    <th>Severity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hardcoded Telegram Bot Token</td>
+                    <td><span class="badge high">🔴 High</span></td>
+                </tr>
+                <tr>
+                    <td>Client-side API Calls</td>
+                    <td><span class="badge medium">🟠 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>Device Fingerprinting</td>
+                    <td><span class="badge medium">🟠 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>Excessive Personal Data Collection</td>
+                    <td><span class="badge medium">🟠 Medium</span></td>
+                </tr>
+                <tr>
+                    <td>Lack of Privacy Transparency</td>
+                    <td><span class="badge low">🟡 Low</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>1. Static Analysis</h2>
+        <p>For this assessment, I reviewed the application's HTML and JavaScript without interacting with the backend.</p>
+
+        <h3>Hardcoded Telegram Credentials</h3>
+        <p>The source code contains a Telegram bot token directly inside JavaScript.</p>
+        <div class="screenshot-placeholder">[ Screenshot of the BOT_TOKEN variable ]</div>
+        <p>Because JavaScript is downloaded to every visitor's browser, anyone can reveal this token by using:</p>
+        <ul>
+            <li>Inspect Element</li>
+            <li>View Page Source</li>
+            <li>Browser Developer Tools</li>
+        </ul>
+        <p>Exposing a bot token may allow unauthorized individuals to interact with the Telegram bot depending on its configuration.</p>
+
+        <h3>Hardcoded Chat IDs</h3>
+        <p>The application also exposes Telegram Chat IDs used for message forwarding.</p>
+        <div class="screenshot-placeholder">[ Screenshot of Hardcoded Chat IDs ]</div>
+        <p>This reveals where submitted messages are being delivered and exposes internal implementation details that normally should remain server-side.</p>
+
+        <h3>Direct Telegram API Calls</h3>
+        <p>Instead of sending submissions to a backend server, the website directly communicates with:</p>
+        <p><code>https://api.telegram.org/bot&lt;TOKEN&gt;/sendMessage</code></p>
+        <p>This means every visitor can observe exactly how messages are transmitted.</p>
+        <div class="screenshot-placeholder">[ Screenshot of fetch() function ]</div>
+
+        <h3>Client-side Data Collection</h3>
+        <p>The JavaScript collects various information from visitors including:</p>
+        <ul>
+            <li>Screen resolution</li>
+            <li>Device memory</li>
+            <li>CPU core count</li>
+            <li>Browser language</li>
+            <li>Time zone</li>
+            <li>GPU information (WebGL)</li>
+            <li>Network information</li>
+            <li>Battery status (where supported)</li>
+            <li>Persistent device identifier stored in Local Storage</li>
+            <li>Approximate location from IP lookup</li>
+            <li>GPS coordinates if permission is granted</li>
+        </ul>
+        <div class="screenshot-placeholder">[ Screenshot of forensic collection function ]</div>
+    </section>
+
+    <section>
+        <h2>2. Security Findings</h2>
+
+        <div class="finding-card high">
+            <h3>A. Exposure of Secrets</h3>
+            <p>The Telegram Bot Token is embedded directly into client-side JavaScript.</p>
+            <div class="risk-section">
+                <span class="risk-title">Risk:</span> Anyone inspecting the webpage can obtain the token and potentially misuse the bot.<br>
+                <span class="rec-title">Recommendation:</span> Bot tokens should always remain on a secure backend server.
+            </div>
+        </div>
+
+        <div class="finding-card medium">
+            <h3>B. Client-side Logic Exposure</h3>
+            <p>Since the entire application logic executes inside the browser, users can easily understand how messages are sent, what information is collected, and which Telegram channels receive data.</p>
+            <div class="risk-section">
+                <span class="rec-title">Key Takeaway:</span> Sensitive operations should not occur entirely on the client side.
+            </div>
+        </div>
+
+        <div class="finding-card medium">
+            <h3>C. Personal Data Collection</h3>
+            <p>Although the website is presented as anonymous, the code collects multiple pieces of device and browser information before forwarding data to Telegram (e.g., fingerprint info, persistent IDs, IP/GPS location, hardware specs, ISP data).</p>
+            <div class="risk-section">
+                <span class="risk-title">Risk:</span> Collecting this information reduces the level of anonymity users expect.
+                <br>
+                <span class="rec-title">Recommendation:</span> Developers should clearly disclose what information is collected and ensure compliance with applicable privacy laws and institutional policies.
+            </div>
+        </div>
+
+        <div class="finding-card medium">
+            <h3>D. Device Fingerprinting</h3>
+            <p>The application creates a persistent identifier using Local Storage:</p>
+            <p><code>localStorage.setItem(...)</code></p>
+            <div class="risk-section">
+                <span class="risk-title">Risk:</span> This identifier remains on the device and can associate multiple submissions originating from the same browser.
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Privacy Considerations</h2>
+        <p>Anonymous submission platforms often encourage users to believe their identity cannot be linked to submissions. However, this application collects additional metadata that could potentially be associated with users (device characteristics, network info, fingerprinting, persistent IDs, location data).</p>
+        <p>Developers should ensure users are informed about any collected data and follow applicable privacy requirements.</p>
+    </section>
+
+    <section>
+        <h2>4. Recommendations</h2>
+        <ol>
+            <li>Move Telegram API requests to a backend server.</li>
+            <li>Never expose Telegram Bot Tokens in client-side JavaScript.</li>
+            <li>Store secrets using server-side environment variables.</li>
+            <li>Minimize collection of user metadata; only collect what is strictly necessary.</li>
+            <li>Publish a transparent privacy notice explaining what information is collected and why.</li>
+            <li>Regularly rotate compromised API credentials if exposure occurs.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>5. Conclusion</h2>
+        <p>This analysis demonstrates several common security issues found in client-side web applications. The most significant issue is the exposure of sensitive Telegram credentials through hardcoded JavaScript, allowing anyone to discover the bot token by inspecting the page source. Additionally, the application performs extensive client-side collection of device and browser metadata before forwarding submissions to Telegram, which may conflict with users' expectations of anonymity.</p>
+        <p>Overall, the project serves as a practical example of why secrets should never be stored in frontend code and why developers should carefully consider the privacy implications of collecting user information in anonymous platforms.</p>
+    </section>
+
+</div>
+
+</body>
+</html>
