@@ -27,7 +27,6 @@
       transition: opacity 0.5s ease;
     }
 
-    /* Navigation - Flow on Mobile */
     .top-back {
       margin-bottom: 15px;
     }
@@ -163,7 +162,6 @@
       margin-bottom: 4px;
     }
 
-    /* Table Mobile Overflow Container */
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -250,7 +248,6 @@
       color: #888;
     }
 
-    /* Preloader */
     #preloader {
       position: fixed;
       top: 0;
@@ -278,7 +275,6 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Tablet and Desktop Styles */
     @media (min-width: 768px) {
       body {
         padding: 20px;
@@ -368,8 +364,8 @@
 
   <section>
     <h2>Overview &amp; File Information</h2>
-    <p>This project is an anonymous student confession website. Users can send a confession and its message is forwarded to Telegram. While looking through the website source code I noticed that some important information and the source can be seen by anyone using the browser. As someone who is still learning web security I found this interesting because it shows why developers should be careful about what they put in frontend code.</p>
-    <p>Since JavaScript runs in the user browser anyone can open Developer Tools or View Source to see the code. During my review, I was able to see things like API requests and other implementation details. From what I have learned sensitive information should not be stored in client side JavaScript because users can easily inspect it.</p>
+    <p>This project is a website where students can confess anonymously. Users can send a confession and it will be sent to Telegram. I noticed that when looking through the website source code, some important information and source can be seen by anyone using the browser. I’m still learning web security as a person and I found this interesting because it shows why developers need to be careful with what they put in frontend code.</p>
+    <p>Since JavaScript is executed in the user browser anyone can open Developer Tools or View Source and see the code. During the review I could see things like API requests and other implementation details. From what Ive learnt you should not store sensitive information on client side JavaScript because users can easily inspect it.</p>
 
     <div class="meta-grid">
       <div class="meta-item">
@@ -429,12 +425,12 @@
 
   <section>
     <h2>1. Static Analysis</h2>
-    <p>I only performed a static analysis for this project, I reviewed the HTML and JavaScript files without testing or interacting with the backend.</p>
+    <p>I only perform a static analysis for this project, I reviewed the HTML and JavaScript files without testing or interacting with the backend.</p>
 
     <h3>Hardcoded Telegram Credentials</h3>
     <p>While checking the JavaScript code I noticed that the Telegram Bot Token was written directly in the source code.</p>
     <img src="Capture9.JPG" alt="Hardcoded Telegram Bot Token" />
-    <p>Because JavaScript is downloaded to every visitor's browser, anyone can reveal this token by using:</p>
+    <p>Because JavaScript is downloaded to every visitor's browser anyone can reveal this token by using:</p>
     <ul>
       <li>Inspect Element</li>
       <li>View Page Source</li>
