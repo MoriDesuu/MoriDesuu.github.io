@@ -475,7 +475,7 @@
       <h3>A. Exposure of Secrets</h3>
       <p>The Telegram Bot Token is embedded directly into client side JavaScript.</p>
       <div class="risk-section">
-        <span class="risk-title">Risk:</span> Anyone inspecting the webpage can obtain the token and potentially misuse the bot.<br>
+        <span class="risk-title">Risk:</span> Anyone inspecting the webpage can get the token and potentially misuse the bot.<br>
         <span class="rec-title">Recommendation:</span> Bot tokens should always remain on a secure backend server.
       </div>
     </div>
@@ -502,27 +502,15 @@
       <p>The application creates a persistent identifier using Local Storage:</p>
       <p><code>localStorage.setItem(...)</code></p>
       <div class="risk-section">
-        <span class="risk-title">Risk:</span> This identifier remains on the device and can associate multiple submissions originating from the same browser.
+        <span class="risk-title">Risk:</span> This identifier remain on the device and can associate multiple submissions originating from the same browser.
       </div>
     </div>
   </section>
 
   <section>
-    <h2>3. Privacy Considerations</h2>
+    <h2>3. Consideration Privacy</h2>
     <p>Anonymous submission platforms often encourage users to believe their identity cannot be linked to submissions. However this application collects additional metadata that could potentially be associated with users (device characteristics, network info, fingerprinting, persistent IDs, location data).</p>
     <p>Developers should ensure users are informed about any collected data and follow applicable privacy requirements.</p>
-  </section>
-
-  <section>
-    <h2>4. Recommendations</h2>
-    <ol>
-      <li>Move Telegram API requests to a backend</li>
-      <li>Never expose Telegram Bot Tokens in client side JavaScript.</li>
-      <li>Store secrets using server-side environment variables.</li>
-      <li>Minimize collection of user metadata; only collect what is strictly necessary.</li>
-      <li>Publish a transparent privacy notice explaining what information is collected and why.</li>
-      <li>Regularly rotate compromised API credentials if exposure occurs.</li>
-    </ol>
   </section>
 
   <section>
